@@ -1,0 +1,52 @@
+﻿@page
+@model ShelterApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<section class="hero text-center py-5 bg-light rounded mb-4">
+    <h1 class="mt-3">Приют «Шанс на жизнь»</h1>
+    <p class="lead">Найдите верного друга — собаку или кошку из приюта.</p>
+    <p>
+        <strong>Телефон:</strong> +7 (900) 000-00-00 &nbsp;|&nbsp;
+        <strong>Email:</strong> info@shans-life.ru &nbsp;|&nbsp;
+        <strong>Адрес:</strong> г. Вышний Волочёк, ул. Красноармейская, 38
+    </p>
+</section>
+
+<h2 class="mb-4">Наши питомцы</h2>
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-warning">@ViewData["Error"]</div>
+}
+
+@if (!Model.ViewModel.Animals.Any())
+{
+    <div class="alert alert-info">Пока нет доступных животных.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var a in Model.ViewModel.Animals)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="@(a.MainPhoto ?? "/images/no-photo.png")"
+                         class="card-img-top" alt="@a.Name"
+                         style="height:240px;object-fit:cover;"
+                         onerror="this.src='/images/no-photo.png'" />
+                    <div class="card-body">
+                        <h5 class="card-title">@a.Name</h5>
+                        <p class="card-text mb-1"><strong>@a.SpeciesText</strong>, @a.Breed</p>
+                        <p class="card-text mb-1 text-muted">@a.GenderText · @a.AgeText · @a.SizeText</p>
+                        <p class="card-text">@a.Description</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="#" class="btn btn-primary w-100">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
