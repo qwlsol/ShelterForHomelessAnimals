@@ -11,6 +11,8 @@ public class IndexModel : PageModel
 
     public HomeViewModel ViewModel { get; private set; } = new();
 
+    public string? ErrorMessage { get; private set; }
+
     public IndexModel(IAnimalRepository repo, ILogger<IndexModel> logger)
     {
         _repo = repo;
@@ -29,7 +31,7 @@ public class IndexModel : PageModel
         catch (Exception ex)
         {
             _logger.LogError(ex, "Ошибка загрузки главной страницы");
-            ViewData["Error"] = $"Ошибка: {ex.Message}";
+            ErrorMessage = $"Ошибка: {ex.Message}";
         }
     }
 }
