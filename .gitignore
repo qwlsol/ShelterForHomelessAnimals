@@ -28,9 +28,6 @@
 .DS_Store
 Thumbs.db
 
-# EF migrations (если не хотите их коммитить — раскомментируйте)
-# **/Migrations/
-
 # Локальные строки подключения
 appsettings.Development.json
 appsettings.Local.json
