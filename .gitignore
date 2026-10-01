@@ -67,3 +67,17 @@ Desktop.ini
 # appsettings.Development.json
 # appsettings.Local.json
 # secrets.json
+# Source maps (нужны только для отладки)
+wwwroot/lib/**/*.map
+
+# RTL-версии (только для арабского/иврита)
+wwwroot/lib/**/*.rtl.*
+
+# ESM-версии JS
+wwwroot/lib/bootstrap/**/*.esm.*
+
+# Slim-версии jQuery
+wwwroot/lib/jquery/**/*.slim.*
+
+# Доп. методы валидации
+wwwroot/lib/jquery-validation/dist/additional-methods*
