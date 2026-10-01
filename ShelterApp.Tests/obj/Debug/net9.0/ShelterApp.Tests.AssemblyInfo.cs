@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShelterApp.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab4519864cbbfde86bc0e49b98804fd5954e82c2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67e3d9ece3cdae51daca4f34278332bd4bea2d18")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShelterApp.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShelterApp.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
