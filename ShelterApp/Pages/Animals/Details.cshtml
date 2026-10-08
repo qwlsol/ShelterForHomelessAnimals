@@ -1,0 +1,93 @@
+﻿@page "{id:int}"
+@model ShelterApp.Pages.Animals.DetailsModel
+@{
+    ViewData["Title"] = Model.Animal?.Name ?? "Анкета животного";
+}
+
+@if (Model.Animal == null)
+{
+    <div class="alert alert-warning">
+        Животное не найдено. Возможно, оно уже нашло дом.
+    </div>
+    <a asp-page="/Index" class="btn btn-secondary">Вернуться к каталогу</a>
+}
+else
+{
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="/Index">Каталог</a></li>
+            <li class="breadcrumb-item active">@Model.Animal.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <img id="mainPhoto"
+                     src="@(Model.Animal.MainPhoto ?? "/images/no-photo.png")"
+                     class="card-img-top"
+                     style="width:100%;height:auto;max-height:600px;object-fit:contain;background:#f8f9fa;"
+                     alt="@Model.Animal.Name"
+                     onerror="this.src='/images/no-photo.png'" />
+
+                @if (Model.Animal.Photos.Count > 1)
+                {
+                    <div class="card-body d-flex gap-2 flex-wrap">
+                        @foreach (var p in Model.Animal.Photos)
+                        {
+                            <img src="@p.FilePath"
+                                 class="rounded border"
+                                 style="width:80px;height:80px;object-fit:cover;cursor:pointer;"
+                                 onclick="document.getElementById('mainPhoto').src='@p.FilePath'"
+                                 onerror="this.style.display='none'" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h1 class="mb-3">@Model.Animal.Name</h1>
+
+            <div class="mb-3">
+                <span class="badge bg-primary">@Model.Animal.SpeciesText</span>
+                <span class="badge bg-secondary">@Model.Animal.Breed</span>
+                <span class="badge @Model.Animal.StatusBadgeClass">@Model.Animal.StatusText</span>
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-4">Пол</dt>
+                <dd class="col-sm-8">@Model.Animal.GenderText</dd>
+
+                <dt class="col-sm-4">Возраст</dt>
+                <dd class="col-sm-8">@Model.Animal.AgeText</dd>
+
+                <dt class="col-sm-4">Размер</dt>
+                <dd class="col-sm-8">@Model.Animal.SizeText</dd>
+
+                <dt class="col-sm-4">В приюте с</dt>
+                <dd class="col-sm-8">@Model.Animal.ArrivalDate.ToString("dd.MM.yyyy")</dd>
+            </dl>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Animal.Description))
+            {
+                <h5>О характере</h5>
+                <p>@Model.Animal.Description</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.Animal.HealthInfo))
+            {
+                <h5>Здоровье</h5>
+                <p>@Model.Animal.HealthInfo</p>
+            }
+
+            <hr />
+
+
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success mt-3">@Model.SuccessMessage</div>
+            }
+        </div>
+    </div>
+}
