@@ -18,4 +18,10 @@ public class AnimalPgRepository : IAnimalRepository
             .OrderByDescending(a => a.ArrivalDate)
             .ToList();
     }
+    public Animal? GetAnimalById(int id)
+    {
+        return _context.Animals
+            .Include(a => a.Photos)
+            .FirstOrDefault(a => a.Id == id);
+    }
 }

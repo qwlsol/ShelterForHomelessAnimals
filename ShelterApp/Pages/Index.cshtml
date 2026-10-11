@@ -43,7 +43,8 @@ else
                         <p class="card-text">@a.Description</p>
                     </div>
                     <div class="card-footer bg-white border-0">
-                        <a href="#" class="btn btn-primary w-100">Подробнее</a>
+                        <a asp-page="/Animals/Details" asp-route-id="@a.Id"
+                           class="btn btn-primary w-100">Подробнее</a>
                     </div>
                 </div>
             </div>

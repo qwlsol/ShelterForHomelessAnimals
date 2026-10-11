@@ -25,6 +25,24 @@ public class Animal
     [NotMapped] public string SizeText => Size switch { 0 => "Маленький", 1 => "Средний", _ => "Крупный" };
     [NotMapped] public string AgeText => Age < 12 ? $"{Age} мес." : $"{Age / 12} г. {Age % 12} мес.";
     [NotMapped] public string? MainPhoto => Photos.FirstOrDefault(p => p.IsMain)?.FilePath ?? Photos.FirstOrDefault()?.FilePath;
+    
+    [NotMapped]
+    public string StatusText => Status switch
+    {
+        0 => "Ищет дом",
+        1 => "На передержке",
+        2 => "Пристроен",
+        _ => "—"
+    };
+
+    [NotMapped]
+    public string StatusBadgeClass => Status switch
+    {
+        0 => "bg-success",
+        1 => "bg-warning text-dark",
+        2 => "bg-secondary",
+        _ => "bg-secondary"
+    };
 }
 
 [Table("photos")]
