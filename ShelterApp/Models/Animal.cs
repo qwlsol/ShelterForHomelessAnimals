@@ -55,23 +55,4 @@ public class Photo
     public Animal? Animal { get; set; }
 }
 
-[Table("adopters")]
-public class Adopter
-{
-    [Key][Column("id")] public int Id { get; set; }
-    [Column("full_name")] public string FullName { get; set; } = "";
-    [Column("phone")] public string Phone { get; set; } = "";
-    [Column("email")] public string? Email { get; set; }
-    [Column("comment")] public string? Comment { get; set; }
-}
 
-[Table("applications")]
-public class Application
-{
-    [Key][Column("id")] public int Id { get; set; }
-    [Column("animal_id")] public int AnimalId { get; set; }
-    [Column("adopter_id")] public int AdopterId { get; set; }
-    [Column("application_date")] public DateTime ApplicationDate { get; set; }
-    [Column("status")] public int Status { get; set; }
-    [Column("admin_comment")] public string? AdminComment { get; set; }
-}

@@ -10,5 +10,5 @@ public class ShelterContext : DbContext
     public DbSet<Animal> Animals => Set<Animal>();
     public DbSet<Photo> Photos => Set<Photo>();
     public DbSet<Adopter> Adopters => Set<Adopter>();
-    public DbSet<Application> Applications => Set<Application>();
+    public DbSet<AdoptionRequest> AdoptionRequests => Set<AdoptionRequest>();
 }

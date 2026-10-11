@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ShelterContext>(options =>
     options.UseNpgsql(dataSource));
 
 builder.Services.AddScoped<IAnimalRepository, AnimalPgRepository>();
+builder.Services.AddScoped<IAdoptionRepository, AdoptionPgRepository>();
 
 var app = builder.Build();
 
@@ -34,4 +35,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
 public partial class Program { }

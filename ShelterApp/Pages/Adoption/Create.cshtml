@@ -1,0 +1,63 @@
+﻿@page
+@model ShelterApp.Pages.Adoption.CreateModel
+@{
+    ViewData["Title"] = "Заявка на пристройство";
+}
+
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="/Index">Каталог</a></li>
+        <li class="breadcrumb-item"><a asp-page="/Animals/Details" asp-route-id="@Model.Form.AnimalId">@Model.Form.AnimalName</a></li>
+        <li class="breadcrumb-item active">Заявка</li>
+    </ol>
+</nav>
+
+<h1 class="mb-4">Заявка на пристройство: @Model.Form.AnimalName</h1>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success">@Model.SuccessMessage</div>
+    <a asp-page="/Index" class="btn btn-primary">Вернуться к каталогу</a>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-md-4">
+            <img src="@(Model.Form.AnimalPhotoPath ?? "/images/no-photo.png")"
+                 class="img-fluid rounded shadow-sm" alt="@Model.Form.AnimalName"
+                 onerror="this.src='/images/no-photo.png'" />
+        </div>
+        <div class="col-md-8">
+            <form method="post">
+                <input type="hidden" asp-for="Form.AnimalId" />
+                <input type="hidden" asp-for="Form.AnimalName" />
+                <input type="hidden" asp-for="Form.AnimalPhotoPath" />
+
+                <div class="mb-3">
+                    <label asp-for="Form.FullName" class="form-label">ФИО *</label>
+                    <input asp-for="Form.FullName" class="form-control" placeholder="Иванова Мария Петровна" />
+                    <span asp-validation-for="Form.FullName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.Phone" class="form-label">Телефон *</label>
+                    <input asp-for="Form.Phone" class="form-control" placeholder="+7 (___) ___-__-__" />
+                    <span asp-validation-for="Form.Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Form.Email" class="form-label">Email</label>
+                    <input asp-for="Form.Email" class="form-control" placeholder="example@mail.ru" />
+                    <span asp-validation-for="Form.Email" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">Отправить заявку</button>
+                <a asp-page="/Animals/Details" asp-route-id="@Model.Form.AnimalId" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
