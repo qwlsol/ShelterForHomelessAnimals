@@ -1,0 +1,83 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio (главный источник мусора)
+.vs/
+*.vsidx
+*.wsuo
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.sln.docstates
+*.slnx.sqlite
+slnx.sqlite
+DocumentLayout*.json
+DocumentLayout.backup.json
+FileContentIndex/
+*.VC.db
+*.VC.VC.opendb
+*.opendb
+.vscode/
+.idea/
+*.sln.iml
+
+## Build artifacts
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.nupkg
+*.snupkg
+*.nuspec
+
+## NuGet packages
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## Test results
+[Tt]est[Rr]esult*/
+*.trx
+*.coverage
+*.coveragexml
+*.dll
+*.pdb
+*.exe
+*.cache
+
+## Publish
+publish/
+*.publishsettings
+*.pubxml
+*.pubxml.user
+
+## OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Логи
+*.log
+
+## Локальные настройки (раскомментируйте, если нужно)
+# appsettings.Development.json
+# appsettings.Local.json
+# secrets.json
+# Source maps (нужны только для отладки)
+wwwroot/lib/**/*.map
+
+# RTL-версии (только для арабского/иврита)
+wwwroot/lib/**/*.rtl.*
+
+# ESM-версии JS
+wwwroot/lib/bootstrap/**/*.esm.*
+
+# Slim-версии jQuery
+wwwroot/lib/jquery/**/*.slim.*
+
+# Доп. методы валидации
+wwwroot/lib/jquery-validation/dist/additional-methods*
