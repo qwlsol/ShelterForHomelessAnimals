@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShelterApp.Models;
 using ShelterApp.Repositories;
+using ShelterApp.ViewModels;
 
 namespace ShelterApp.Pages.Animals;
 
@@ -10,6 +11,7 @@ public class DetailsModel : PageModel
     private readonly IAnimalRepository _repo;
 
     public Animal? Animal { get; private set; }
+    public SimilarAnimalsViewModel SimilarViewModel { get; private set; } = new();
     public string? SuccessMessage { get; private set; }
 
 
@@ -19,6 +21,15 @@ public class DetailsModel : PageModel
     {
         Animal = _repo.GetAnimalById(id);
         if (Animal == null) return Page();
+
+        var similar = _repo.GetSimilarAnimals(id, 6);
+
+        SimilarViewModel = new SimilarAnimalsViewModel
+        {
+            CurrentAnimalId = id,
+            SimilarAnimals = similar
+        };
+
         return Page();
     }
 
