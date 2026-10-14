@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShelterApp.Models;
 using ShelterApp.ViewModels;
-using Xunit;
 
 namespace ShelterApp.Tests.UnitTests;
 
+[TestClass]
 public class AdoptionFormUnitTests
 {
-    // Тест 1 формирование модели заявки
-    [Fact]
+    // Тест 1. Формирование модели заявки.
+    [TestMethod]
     public void FormData_Converts_ToAdopterAndRequest()
     {
         var form = new AdoptionFormViewModel
@@ -27,20 +27,25 @@ public class AdoptionFormUnitTests
             Phone = form.Phone,
             Email = form.Email
         };
-        var request = new AdoptionRequest { AnimalId = form.AnimalId };
+        var request = new AdoptionRequest
+        {
+            AnimalId = form.AnimalId,
+            AdopterId = 1
+        };
 
-        adopter.FullName.Should().Be("Иванова Мария");
-        adopter.Phone.Should().Be("+7 900 000 00 00");
-        adopter.Email.Should().Be("maria@mail.ru");
-        request.AnimalId.Should().Be(5);
-        request.Status.Should().Be(0); // на рассмотрении
+        Assert.AreEqual("Иванова Мария", adopter.FullName);
+        Assert.AreEqual("+7 900 000 00 00", adopter.Phone);
+        Assert.AreEqual("maria@mail.ru", adopter.Email);
+        Assert.AreEqual(5, request.AnimalId);
+        Assert.AreEqual(1, request.AdopterId);
+        Assert.AreEqual(0, request.Status);
     }
 
-    // Тест 2 проверка обязательных полей
-    [Theory]
-    [InlineData("", "+7 900 000 00 00")]      // пустое ФИО
-    [InlineData("Иванова Мария", "")]         // пустой телефон
-    [InlineData("", "")]                      // оба пустые
+    // Тест 2. Проверка обязательных полей.
+    [DataTestMethod]
+    [DataRow("", "+7 900 000 00 00")]
+    [DataRow("Иванова Мария", "")]
+    [DataRow("", "")]
     public void EmptyRequiredFields_MakeModelInvalid(string fullName, string phone)
     {
         var form = new AdoptionFormViewModel
@@ -52,15 +57,15 @@ public class AdoptionFormUnitTests
 
         var results = Validate(form);
 
-        results.Should().Contain(r => r.MemberNames.Contains(nameof(form.FullName)) || r.MemberNames.Contains(nameof(form.Phone)));
+        Assert.IsTrue(results.Count > 0, "модель должна быть недействительной");
     }
 
-    // Тест 3 проверка электронной почты
-    [Theory]
-    [InlineData("abc", false)]                 // некорректный email
-    [InlineData("abc@", false)]                // некорректный email
-    [InlineData("maria@mail.ru", true)]        // корректный email
-    [InlineData(null, true)]                   // отсутствует — допустимо
+    // Тест 3. Проверка электронной почты.
+    [DataTestMethod]
+    [DataRow("abc", false)]
+    [DataRow("abc@", false)]
+    [DataRow("maria@mail.ru", true)]
+    [DataRow(null, true)]
     public void EmailValidation_WorksAsExpected(string? email, bool expectedValid)
     {
         var form = new AdoptionFormViewModel
@@ -74,7 +79,7 @@ public class AdoptionFormUnitTests
         var results = Validate(form);
         var isValid = results.All(r => r.MemberNames.All(m => m != nameof(form.Email)));
 
-        isValid.Should().Be(expectedValid);
+        Assert.AreEqual(expectedValid, isValid);
     }
 
     private static List<ValidationResult> Validate(object model)

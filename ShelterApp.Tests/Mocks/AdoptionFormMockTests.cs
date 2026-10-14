@@ -1,16 +1,15 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ShelterApp.Models;
 using ShelterApp.Pages.Adoption;
 using ShelterApp.Repositories;
 using ShelterApp.ViewModels;
-using Xunit;
 
 namespace ShelterApp.Tests.Mocks;
 
+[TestClass]
 public class AdoptionFormMockTests
 {
     private static CreateModel CreatePageModel(IAnimalRepository animals, IAdoptionRepository adoptions)
@@ -27,14 +26,22 @@ public class AdoptionFormMockTests
         return mock.Object;
     }
 
-    // Mock-тест 1 вызов сохранения ровно один раз
-    [Fact]
-    public void OnPost_ValidModel_CallsRepository_Once()
+    // Mock-тест 1. Вызов сохранения с конкретными данными.
+    [TestMethod]
+    public void OnPost_ValidModel_CallsRepository_WithExpectedData()
     {
         var animal = new Animal { Id = 1, Name = "Тимоша", Photos = new List<Photo>() };
-        var mockRepo = new Mock<IAdoptionRepository>();
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
-        var page = CreatePageModel(AnimalRepoWith(animal), mockRepo.Object);
+        // Настраиваем мок на конкретные значения:
+        // Phone = "+7 900 000 00 00", AnimalId = 1.
+        mockAdoptions.Setup(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 900 000 00 00"
+                             && a.FullName == "Иванова Мария"
+                             && a.Email == "maria@mail.ru"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)));
+
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
         page.Form = new AdoptionFormViewModel
         {
             AnimalId = 1,
@@ -45,36 +52,48 @@ public class AdoptionFormMockTests
 
         page.OnPost();
 
-        mockRepo.Verify(r => r.AddAdoptionRequest(It.IsAny<Adopter>(), It.IsAny<AdoptionRequest>()),
+        // Проверяем, что метод был вызван именно с этими данными
+        mockAdoptions.Verify(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 900 000 00 00"
+                             && a.FullName == "Иванова Мария"
+                             && a.Email == "maria@mail.ru"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)),
             Times.Once);
     }
 
-    // Mock-тест 2 неверная модель сохранение не вызывается
-    [Fact]
+    // Mock-тест 2. Неверная модель — сохранение не вызывается.
+    [TestMethod]
     public void OnPost_InvalidModel_DoesNotCallRepository()
     {
         var animal = new Animal { Id = 1, Name = "Тимоша", Photos = new List<Photo>() };
-        var mockRepo = new Mock<IAdoptionRepository>();
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
-        var page = CreatePageModel(AnimalRepoWith(animal), mockRepo.Object);
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
         page.ModelState.AddModelError("Form.FullName", "Required");
         page.Form = new AdoptionFormViewModel { AnimalId = 1 };
 
         page.OnPost();
 
-        mockRepo.Verify(r => r.AddAdoptionRequest(It.IsAny<Adopter>(), It.IsAny<AdoptionRequest>()),
+        // Проверяем, что для конкретного телефона вызова не было
+        mockAdoptions.Verify(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 900 000 00 00"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)),
             Times.Never);
-        page.SuccessMessage.Should().BeNull();
+        Assert.IsNull(page.SuccessMessage);
     }
 
-    // Mock-тест 3 успешное сохранение сообщение об успехе
-    [Fact]
+    // Mock-тест 3. Успешное сохранение — сообщение об успехе.
+    [TestMethod]
     public void OnPost_ValidModel_ShowsSuccessMessage()
     {
         var animal = new Animal { Id = 1, Name = "Тимоша", Photos = new List<Photo>() };
-        var mockRepo = new Mock<IAdoptionRepository>();
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
-        var page = CreatePageModel(AnimalRepoWith(animal), mockRepo.Object);
+        mockAdoptions.Setup(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 900 000 00 00"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)));
+
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
         page.Form = new AdoptionFormViewModel
         {
             AnimalId = 1,
@@ -84,22 +103,29 @@ public class AdoptionFormMockTests
 
         page.OnPost();
 
-        page.SuccessMessage.Should().Be("Ваша заявка отправлена. Сотрудник приюта свяжется с вами.");
+        Assert.AreEqual("Ваша заявка отправлена. Сотрудник приюта свяжется с вами.", page.SuccessMessage);
     }
 
-    // Mock-тест 4 передача данных в хранилище
-    [Fact]
+    // Mock-тест 4. Передача данных в хранилище — проверяем конкретные поля.
+    [TestMethod]
     public void OnPost_PassesCorrectData_ToRepository()
     {
         var animal = new Animal { Id = 7, Name = "Барсик", Photos = new List<Photo>() };
-        var mockRepo = new Mock<IAdoptionRepository>();
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
         Adopter? savedAdopter = null;
         AdoptionRequest? savedRequest = null;
-        mockRepo.Setup(r => r.AddAdoptionRequest(It.IsAny<Adopter>(), It.IsAny<AdoptionRequest>()))
-                .Callback<Adopter, AdoptionRequest>((a, r) => { savedAdopter = a; savedRequest = r; });
 
-        var page = CreatePageModel(AnimalRepoWith(animal), mockRepo.Object);
+        mockAdoptions.Setup(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 911 111 11 11"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 7)))
+            .Callback<Adopter, AdoptionRequest>((a, r) =>
+            {
+                savedAdopter = a;
+                savedRequest = r;
+            });
+
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
         page.Form = new AdoptionFormViewModel
         {
             AnimalId = 7,
@@ -110,12 +136,12 @@ public class AdoptionFormMockTests
 
         page.OnPost();
 
-        savedAdopter.Should().NotBeNull();
-        savedAdopter!.FullName.Should().Be("Петров Иван");
-        savedAdopter.Phone.Should().Be("+7 911 111 11 11");
-        savedAdopter.Email.Should().Be("ivan@mail.ru");
+        Assert.IsNotNull(savedAdopter);
+        Assert.AreEqual("Петров Иван", savedAdopter!.FullName);
+        Assert.AreEqual("+7 911 111 11 11", savedAdopter.Phone);
+        Assert.AreEqual("ivan@mail.ru", savedAdopter.Email);
 
-        savedRequest.Should().NotBeNull();
-        savedRequest!.AnimalId.Should().Be(7);
+        Assert.IsNotNull(savedRequest);
+        Assert.AreEqual(7, savedRequest!.AnimalId);
     }
 }

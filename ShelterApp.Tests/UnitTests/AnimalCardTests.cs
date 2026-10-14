@@ -1,14 +1,15 @@
-﻿using FluentAssertions;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShelterApp.Models;
-using Xunit;
 
 namespace ShelterApp.Tests.UnitTests;
+
 // Unit-тесты карточки животного.
+[TestClass]
 public class AnimalCardTests
 {
     // Тест 1. Формирование карточки животного.
     // Данные модели поступают в представление, карточка формируется корректно.
-    [Fact]
+    [TestMethod]
     public void AnimalCard_IsFormedCorrectly_FromModel()
     {
         var animal = new Animal
@@ -33,12 +34,12 @@ public class AnimalCardTests
             !string.IsNullOrWhiteSpace(animal.SizeText) &&
             !string.IsNullOrWhiteSpace(animal.AgeText);
 
-        isCardReady.Should().BeTrue("все поля для карточки должны быть заполнены");
-        animal.Name.Should().Be("Тимоша");
+        Assert.IsTrue(isCardReady, "все поля для карточки должны быть заполнены");
+        Assert.AreEqual("Тимоша", animal.Name);
     }
 
     // Тест 2. На карточке отображается главная фотография животного.
-    [Fact]
+    [TestMethod]
     public void MainPhoto_ReturnsPhotoWithIsMainTrue()
     {
         var animal = new Animal
@@ -55,11 +56,11 @@ public class AnimalCardTests
 
         var mainPhoto = animal.MainPhoto;
 
-        mainPhoto.Should().Be("/images/timosha-main.jpg",
+        Assert.AreEqual("/images/timosha-main.jpg", mainPhoto,
             "должна вернуться фотография с IsMain = true");
     }
 
-    [Fact]
+    [TestMethod]
     public void MainPhoto_ReturnsFirstPhoto_WhenNoMainFlagged()
     {
         var animal = new Animal
@@ -71,19 +72,18 @@ public class AnimalCardTests
             }
         };
 
-        animal.MainPhoto.Should().Be("/images/1.jpg");
+        Assert.AreEqual("/images/1.jpg", animal.MainPhoto);
     }
 
-    [Fact]
+    [TestMethod]
     public void MainPhoto_ReturnsNull_WhenNoPhotos()
     {
         var animal = new Animal { Photos = new List<Photo>() };
-        animal.MainPhoto.Should().BeNull();
+        Assert.IsNull(animal.MainPhoto);
     }
 
-   
-    // Тест 3. На карточке отображается кличка, вид, порода, пол, возраст и размер животного
-    [Fact]
+    // Тест 3. На карточке отображается кличка, вид, порода, пол, возраст и размер животного.
+    [TestMethod]
     public void AnimalCard_Contains_AllRequiredFields()
     {
         var animal = new Animal
@@ -96,39 +96,47 @@ public class AnimalCardTests
             Size = 0           // маленький
         };
 
-        animal.Name.Should().Be("Мурка");            // кличка
-        animal.SpeciesText.Should().Be("Кошка");     // вид
-        animal.Breed.Should().Be("британская");      // порода
-        animal.GenderText.Should().Be("Девочка");    // пол
-        animal.AgeText.Should().Be("2 г. 0 мес.");   // возраст
-        animal.SizeText.Should().Be("Маленький");    // размер
+        Assert.AreEqual("Мурка", animal.Name);             // кличка
+        Assert.AreEqual("Кошка", animal.SpeciesText);      // вид
+        Assert.AreEqual("британская", animal.Breed);       // порода
+        Assert.AreEqual("Девочка", animal.GenderText);     // пол
+        Assert.AreEqual("2 г. 0 мес.", animal.AgeText);    // возраст
+        Assert.AreEqual("Маленький", animal.SizeText);     // размер
     }
 
-    [Theory]
-    [InlineData(0, "Собака")]
-    [InlineData(1, "Кошка")]
+    [DataTestMethod]
+    [DataRow(0, "Собака")]
+    [DataRow(1, "Кошка")]
     public void SpeciesText_IsCorrect(int species, string expected)
-        => new Animal { Species = species }.SpeciesText.Should().Be(expected);
+    {
+        Assert.AreEqual(expected, new Animal { Species = species }.SpeciesText);
+    }
 
-    [Theory]
-    [InlineData(0, "Мальчик")]
-    [InlineData(1, "Девочка")]
+    [DataTestMethod]
+    [DataRow(0, "Мальчик")]
+    [DataRow(1, "Девочка")]
     public void GenderText_IsCorrect(int gender, string expected)
-        => new Animal { Gender = gender }.GenderText.Should().Be(expected);
+    {
+        Assert.AreEqual(expected, new Animal { Gender = gender }.GenderText);
+    }
 
-    [Theory]
-    [InlineData(0, "Маленький")]
-    [InlineData(1, "Средний")]
-    [InlineData(2, "Крупный")]
+    [DataTestMethod]
+    [DataRow(0, "Маленький")]
+    [DataRow(1, "Средний")]
+    [DataRow(2, "Крупный")]
     public void SizeText_IsCorrect(int size, string expected)
-        => new Animal { Size = size }.SizeText.Should().Be(expected);
+    {
+        Assert.AreEqual(expected, new Animal { Size = size }.SizeText);
+    }
 
-    [Theory]
-    [InlineData(6, "6 мес.")]
-    [InlineData(11, "11 мес.")]
-    [InlineData(12, "1 г. 0 мес.")]
-    [InlineData(24, "2 г. 0 мес.")]
-    [InlineData(36, "3 г. 0 мес.")]
+    [DataTestMethod]
+    [DataRow(6, "6 мес.")]
+    [DataRow(11, "11 мес.")]
+    [DataRow(12, "1 г. 0 мес.")]
+    [DataRow(24, "2 г. 0 мес.")]
+    [DataRow(36, "3 г. 0 мес.")]
     public void AgeText_IsCorrect(int age, string expected)
-        => new Animal { Age = age }.AgeText.Should().Be(expected);
+    {
+        Assert.AreEqual(expected, new Animal { Age = age }.AgeText);
+    }
 }

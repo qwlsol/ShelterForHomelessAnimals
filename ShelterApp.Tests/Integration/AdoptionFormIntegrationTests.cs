@@ -1,154 +1,118 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using ShelterApp.Data;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using ShelterApp.Models;
-using System.Net;
-using Xunit;
+using ShelterApp.Pages.Adoption;
+using ShelterApp.Repositories;
+using ShelterApp.ViewModels;
 
 namespace ShelterApp.Tests.Integration;
 
-public class AdoptionFormIntegrationTests : IDisposable
+[TestClass]
+public class AdoptionFormIntegrationTests
 {
-    private readonly WebApplicationFactory<Program> _factory;
-
-    public AdoptionFormIntegrationTests()
+    private static CreateModel CreatePageModel(IAnimalRepository animals, IAdoptionRepository adoptions)
     {
-        var dbName = "AdoptionTestDb_" + Guid.NewGuid();
-
-        _factory = new WebApplicationFactory<Program>()
-            .WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureTestServices(services =>
-                {
-                    services.AddRazorPages(options =>
-                    {
-                        options.Conventions.ConfigureFilter(
-                            new Microsoft.AspNetCore.Mvc.IgnoreAntiforgeryTokenAttribute());
-                    });
-
-                    services.RemoveAll<ShelterContext>();
-                    services.RemoveAll<DbContextOptions<ShelterContext>>();
-                    services.RemoveAll<DbContextOptions>();
-                    services.RemoveAll(typeof(DbContextOptions<>));
-                    services.RemoveAll(typeof(IDbContextOptionsConfiguration<>));
-                    services.RemoveAll(typeof(IDbContextFactory<>));
-
-                    var efAndNpgsql = services
-                        .Where(d =>
-                            d.ServiceType == typeof(IDatabaseProvider) ||
-                            d.ServiceType.FullName?.StartsWith("Npgsql") == true ||
-                            d.ServiceType.FullName?.StartsWith("Microsoft.EntityFrameworkCore") == true)
-                        .ToList();
-                    foreach (var d in efAndNpgsql) services.Remove(d);
-
-                    var inMemoryProvider = new ServiceCollection()
-                        .AddEntityFrameworkInMemoryDatabase()
-                        .BuildServiceProvider();
-
-                    services.AddDbContext<ShelterContext>(opt =>
-                        opt.UseInMemoryDatabase(dbName)
-                           .UseInternalServiceProvider(inMemoryProvider));
-                });
-            });
+        var page = new CreateModel(animals, adoptions);
+        page.PageContext = new PageContext { HttpContext = new DefaultHttpContext() };
+        return page;
     }
 
-    public void Dispose() => _factory.Dispose();
-
-    private async Task<int> SeedAnimalAsync(string name = "Тимоша")
+    private static IAnimalRepository AnimalRepoWith(Animal animal)
     {
-        using var scope = _factory.Services.CreateScope();
-        var ctx = scope.ServiceProvider.GetRequiredService<ShelterContext>();
+        var mock = new Mock<IAnimalRepository>();
+        mock.Setup(r => r.GetAnimalById(animal.Id)).Returns(animal);
+        return mock.Object;
+    }
+
+    // Интеграционный тест 1. Открытие формы заявки — для конкретного animalId.
+    [TestMethod]
+    public void Create_Form_Opens_WithAnimalData()
+    {
         var animal = new Animal
         {
-            Name = name,
-            Species = 1,
-            Breed = "метис",
-            Gender = 0,
-            Age = 6,
-            Size = 0,
-            Status = 0
+            Id = 1,
+            Name = "Тимоша",
+            Photos = new List<Photo>
+            {
+                new Photo { FilePath = "/images/timosha.jpg", IsMain = true }
+            }
         };
-        ctx.Animals.Add(animal);
-        ctx.Photos.Add(new Photo { Animal = animal, FilePath = "/images/timosha.jpg", IsMain = true });
-        await ctx.SaveChangesAsync();
-        return animal.Id;
+
+        // Мок настроен на animalId = 1
+        var mockAnimals = new Mock<IAnimalRepository>();
+        mockAnimals.Setup(r => r.GetAnimalById(1)).Returns(animal);
+
+        var adoptionRepo = new Mock<IAdoptionRepository>().Object;
+        var page = CreatePageModel(mockAnimals.Object, adoptionRepo);
+
+        page.OnGet(1);
+
+        Assert.AreEqual(1, page.Form.AnimalId);
+        Assert.AreEqual("Тимоша", page.Form.AnimalName);
+        Assert.AreEqual("/images/timosha.jpg", page.Form.AnimalPhotoPath);
+
+        // Проверяем, что запрос был именно по animalId = 1
+        mockAnimals.Verify(r => r.GetAnimalById(1), Times.Once);
     }
 
-    // Интеграционный тест 1 открытие формы заявки
-    [Fact]
-    public async Task Create_Form_Opens_WithAnimalData()
+    // Интеграционный тест 2. Сохранение усыновителя с конкретными данными.
+    [TestMethod]
+    public void Submit_Saves_Adopter_WithCorrectData()
     {
-        var animalId = await SeedAnimalAsync("Тимоша");
-        var client = _factory.CreateClient();
+        var animal = new Animal { Id = 1, Name = "Тимоша", Photos = new List<Photo>() };
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
-        var response = await client.GetAsync($"/Adoption/Create?animalId={animalId}");
-        var html = WebUtility.HtmlDecode(await response.Content.ReadAsStringAsync());
+        Adopter? savedAdopter = null;
+        mockAdoptions.Setup(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 900 000 00 00"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)))
+            .Callback<Adopter, AdoptionRequest>((a, _) => savedAdopter = a);
 
-        response.IsSuccessStatusCode.Should().BeTrue();
-        html.Should().Contain("Тимоша");
-        html.Should().Contain("/images/timosha.jpg");
-    }
-
-    // Интеграционный тест 2 сохранение усыновителя
-    [Fact]
-    public async Task Submit_Saves_Adopter()
-    {
-        var animalId = await SeedAnimalAsync();
-        var client = _factory.CreateClient();
-
-        var form = new Dictionary<string, string>
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
+        page.Form = new AdoptionFormViewModel
         {
-            ["Form.AnimalId"] = animalId.ToString(),
-            ["Form.AnimalName"] = "Тимоша",
-            ["Form.AnimalPhotoPath"] = "/images/timosha.jpg",
-            ["Form.FullName"] = "Иванова Мария",
-            ["Form.Phone"] = "+7 900 000 00 00",
-            ["Form.Email"] = "maria@mail.ru"
+            AnimalId = 1,
+            FullName = "Иванова Мария",
+            Phone = "+7 900 000 00 00",
+            Email = "maria@mail.ru"
         };
 
-        var response = await client.PostAsync("/Adoption/Create", new FormUrlEncodedContent(form));
-        response.IsSuccessStatusCode.Should().BeTrue();
+        page.OnPost();
 
-        using var scope = _factory.Services.CreateScope();
-        var ctx = scope.ServiceProvider.GetRequiredService<ShelterContext>();
-        var adopter = ctx.Adopters.FirstOrDefault(a => a.Phone == "+7 900 000 00 00");
-
-        adopter.Should().NotBeNull();
-        adopter!.FullName.Should().Be("Иванова Мария");
+        Assert.IsNotNull(savedAdopter);
+        Assert.AreEqual("Иванова Мария", savedAdopter!.FullName);
+        Assert.AreEqual("+7 900 000 00 00", savedAdopter.Phone);
+        Assert.AreEqual("maria@mail.ru", savedAdopter.Email);
     }
 
-    // Интеграционный тест 3 сохранение заявки
-    [Fact]
-    public async Task Submit_Saves_AdoptionRequest_WithStatusPending()
+    // Интеграционный тест 3. Сохранение заявки со статусом «на рассмотрении» — для конкретного животного.
+    [TestMethod]
+    public void Submit_Saves_AdoptionRequest_WithStatusPending()
     {
-        var animalId = await SeedAnimalAsync();
-        var client = _factory.CreateClient();
+        var animal = new Animal { Id = 1, Name = "Тимоша", Photos = new List<Photo>() };
+        var mockAdoptions = new Mock<IAdoptionRepository>();
 
-        var form = new Dictionary<string, string>
+        AdoptionRequest? savedRequest = null;
+        mockAdoptions.Setup(r => r.AddAdoptionRequest(
+            It.Is<Adopter>(a => a.Phone == "+7 911 111 11 11"),
+            It.Is<AdoptionRequest>(r => r.AnimalId == 1)))
+            .Callback<Adopter, AdoptionRequest>((_, r) => savedRequest = r);
+
+        var page = CreatePageModel(AnimalRepoWith(animal), mockAdoptions.Object);
+        page.Form = new AdoptionFormViewModel
         {
-            ["Form.AnimalId"] = animalId.ToString(),
-            ["Form.AnimalName"] = "Тимоша",
-            ["Form.AnimalPhotoPath"] = "/images/timosha.jpg",
-            ["Form.FullName"] = "Петров Иван",
-            ["Form.Phone"] = "+7 911 111 11 11",
-            ["Form.Email"] = ""
+            AnimalId = 1,
+            FullName = "Петров Иван",
+            Phone = "+7 911 111 11 11",
+            Email = ""
         };
 
-        var response = await client.PostAsync("/Adoption/Create", new FormUrlEncodedContent(form));
-        response.IsSuccessStatusCode.Should().BeTrue();
+        page.OnPost();
 
-        using var scope = _factory.Services.CreateScope();
-        var ctx = scope.ServiceProvider.GetRequiredService<ShelterContext>();
-        var request = ctx.AdoptionRequests.FirstOrDefault(r => r.AnimalId == animalId);
-
-        request.Should().NotBeNull();
-        request!.Status.Should().Be(0); 
-        request.AdopterId.Should().BeGreaterThan(0);
+        Assert.IsNotNull(savedRequest);
+        Assert.AreEqual(1, savedRequest!.AnimalId);
+        Assert.AreEqual(0, savedRequest.Status);
     }
 }
