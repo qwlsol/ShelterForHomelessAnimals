@@ -1,16 +1,16 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ShelterApp.Models;
 using ShelterApp.Pages;
 using ShelterApp.Repositories;
-using Xunit;
 
 namespace ShelterApp.Tests.Mocks;
 
 // Mock-тесты страницы IndexModel с мок-репозиторием.
+[TestClass]
 public class IndexPageMockTests
 {
     private static IndexModel CreatePageModel(IAnimalRepository repo)
@@ -27,8 +27,7 @@ public class IndexPageMockTests
     }
 
     // Mock-тест 1. При загрузке главной страницы метод получения животных вызывается один раз.
-
-    [Fact]
+    [TestMethod]
     public void Index_OnGet_CallsRepository_ExactlyOnce()
     {
         var mockRepo = new Mock<IAnimalRepository>();
@@ -44,7 +43,7 @@ public class IndexPageMockTests
     }
 
     // Mock-тест 2. Если получение животных завершается ошибкой, страница отображает сообщение об ошибке.
-    [Fact]
+    [TestMethod]
     public void Index_OnGet_RepositoryThrows_SetsErrorMessage()
     {
         var mockRepo = new Mock<IAnimalRepository>();
@@ -56,9 +55,8 @@ public class IndexPageMockTests
 
         page.OnGet();
 
-        page.ErrorMessage.Should().NotBeNull("сообщение об ошибке должно быть установлено");
-        page.ErrorMessage.Should().Contain("БД недоступна");
-        page.ViewModel.Animals.Should().BeEmpty("при ошибке список животных должен быть пустым");
+        Assert.IsNotNull(page.ErrorMessage, "сообщение об ошибке должно быть установлено");
+        StringAssert.Contains(page.ErrorMessage, "БД недоступна");
+        Assert.AreEqual(0, page.ViewModel.Animals.Count, "при ошибке список животных должен быть пустым");
     }
-
 }
