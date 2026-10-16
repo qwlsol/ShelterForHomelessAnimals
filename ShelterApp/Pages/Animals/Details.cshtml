@@ -90,4 +90,41 @@ else
             }
         </div>
     </div>
+
+    <hr class="my-5" />
+
+    <h3 class="mb-4">Похожие животные</h3>
+
+    @if (Model.SimilarViewModel.SimilarAnimals.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var similar in Model.SimilarViewModel.SimilarAnimals)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@(similar.MainPhoto ?? "/images/no-photo.png")"
+                             class="card-img-top" alt="@similar.Name"
+                             style="height:200px;object-fit:cover;"
+                             onerror="this.src='/images/no-photo.png'" />
+                        <div class="card-body">
+                            <h5 class="card-title">@similar.Name</h5>
+                            <p class="card-text mb-1 text-muted">
+                                @similar.GenderText · @similar.AgeText · @similar.SizeText
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <a asp-page="/Animals/Details" asp-route-id="@similar.Id"
+                               class="btn btn-outline-primary w-100">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light border">
+            Похожих животных пока нет.
+        </div>
+    }
 }
