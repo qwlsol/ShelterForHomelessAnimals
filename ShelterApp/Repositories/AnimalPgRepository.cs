@@ -24,4 +24,22 @@ public class AnimalPgRepository : IAnimalRepository
             .Include(a => a.Photos)
             .FirstOrDefault(a => a.Id == id);
     }
+    public List<Animal> GetSimilarAnimals(int currentAnimalId, int limit = 6)
+    {
+        var currentAnimal = _context.Animals
+            .FirstOrDefault(a => a.Id == currentAnimalId);
+
+        if (currentAnimal == null)
+            return new List<Animal>();
+
+        return _context.Animals
+            .Include(a => a.Photos)
+            .Where(a => a.Species == currentAnimal.Species
+                     && a.Status != 2
+                     && a.Id != currentAnimalId)
+            .OrderByDescending(a => a.Age == currentAnimal.Age)
+            .ThenByDescending(a => a.Gender == currentAnimal.Gender)
+            .Take(limit)
+            .ToList();
+    }
 }
