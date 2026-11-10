@@ -82,6 +82,8 @@ else
             }
 
             <hr />
+            <a asp-page="/Adoption/Create" asp-route-animalId="@Model.Animal.Id"
+               class="btn btn-success w-100 mt-3">Оставить заявку</a>
 
 
             @if (!string.IsNullOrEmpty(Model.SuccessMessage))
