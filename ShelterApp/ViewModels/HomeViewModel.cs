@@ -5,4 +5,6 @@ namespace ShelterApp.ViewModels;
 public class HomeViewModel
 {
     public List<Animal> Animals { get; set; } = new();
+
+    public AnimalFilterViewModel Filter { get; set; } = new();
 }
