@@ -14,6 +14,60 @@
     </p>
 </section>
 
+<div class="card mb-4 shadow-sm bg-light">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-2">
+                <label class="form-label">Вид</label>
+                <select name="species" class="form-select">
+                    <option value="">Все</option>
+                    <option value="0" selected="@(Model.ViewModel.Filter.Species == 0)">Собака</option>
+                    <option value="1" selected="@(Model.ViewModel.Filter.Species == 1)">Кошка</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Пол</label>
+                <select name="gender" class="form-select">
+                    <option value="">Все</option>
+                    <option value="0" selected="@(Model.ViewModel.Filter.Gender == 0)">Мальчик</option>
+                    <option value="1" selected="@(Model.ViewModel.Filter.Gender == 1)">Девочка</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Размер</label>
+                <select name="size" class="form-select">
+                    <option value="">Все</option>
+                    <option value="0" selected="@(Model.ViewModel.Filter.Size == 0)">Маленький</option>
+                    <option value="1" selected="@(Model.ViewModel.Filter.Size == 1)">Средний</option>
+                    <option value="2" selected="@(Model.ViewModel.Filter.Size == 2)">Крупный</option>
+                </select>
+            </div>
+
+            <div class="col-md-1">
+                <label class="form-label">Возраст от</label>
+                <input type="number" name="ageFrom" class="form-control" value="@Model.ViewModel.Filter.AgeFrom" min="0" placeholder="мес." />
+            </div>
+
+            <div class="col-md-1">
+                <label class="form-label">до</label>
+                <input type="number" name="ageTo" class="form-control" value="@Model.ViewModel.Filter.AgeTo" min="0" placeholder="мес." />
+            </div>
+
+            <div class="col-md-2">
+                <label class="form-label">Кличка</label>
+                <input type="text" name="search" class="form-control" value="@Model.ViewModel.Filter.SearchQuery"/>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-primary w-100">Применить</button>
+                <a asp-page="/Index" class="btn btn-outline-secondary w-100">Сбросить</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 <h2 class="mb-4">Наши питомцы</h2>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
