@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ShelterContext>(options =>
 
 builder.Services.AddScoped<IAnimalRepository, AnimalPgRepository>();
 builder.Services.AddScoped<IAdoptionRepository, AdoptionPgRepository>();
+builder.Services.AddScoped<INewsRepository, NewsPgRepository>();
 
 var app = builder.Build();
 
