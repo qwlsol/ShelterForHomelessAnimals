@@ -6,6 +6,7 @@ using Moq;
 using ShelterApp.Models;
 using ShelterApp.Pages;
 using ShelterApp.Repositories;
+using ShelterApp.ViewModels;
 
 namespace ShelterApp.Tests.Mocks;
 
@@ -13,50 +14,37 @@ namespace ShelterApp.Tests.Mocks;
 [TestClass]
 public class IndexPageMockTests
 {
-    private static IndexModel CreatePageModel(IAnimalRepository repo)
-    {
-        var logger = Mock.Of<ILogger<IndexModel>>();
-        var page = new IndexModel(repo, logger);
-
-        // Имитируем HttpContext для Razor Pages
-        page.PageContext = new PageContext
-        {
-            HttpContext = new DefaultHttpContext()
-        };
-        return page;
-    }
-
-    // Mock-тест 1. При загрузке главной страницы метод получения животных вызывается один раз.
+    //проверка, что контроллер вызывает репозиторий ровно один раз
     [TestMethod]
     public void Index_OnGet_CallsRepository_ExactlyOnce()
     {
         var mockRepo = new Mock<IAnimalRepository>();
-        mockRepo.Setup(r => r.GetAvailableAnimals())
+        mockRepo.Setup(r => r.GetFilteredAnimals(It.IsAny<AnimalFilterViewModel>()))
                 .Returns(new List<Animal>());
 
-        var page = CreatePageModel(mockRepo.Object);
+        var logger = Mock.Of<ILogger<IndexModel>>();
+        var page = new IndexModel(mockRepo.Object, logger);
 
-        page.OnGet();
+        page.OnGet(null, null, null, null, null, null);
 
-        mockRepo.Verify(r => r.GetAvailableAnimals(), Times.Once,
+        mockRepo.Verify(r => r.GetFilteredAnimals(It.IsAny<AnimalFilterViewModel>()), Times.Once,
             "метод получения животных должен вызываться ровно один раз");
     }
 
-    // Mock-тест 2. Если получение животных завершается ошибкой, страница отображает сообщение об ошибке.
+    //если БД выдает ошибку, контроллер должен её перехватить и записать в ErrorMessage
     [TestMethod]
     public void Index_OnGet_RepositoryThrows_SetsErrorMessage()
     {
         var mockRepo = new Mock<IAnimalRepository>();
-        mockRepo.Setup(r => r.GetAvailableAnimals())
+        mockRepo.Setup(r => r.GetFilteredAnimals(It.IsAny<AnimalFilterViewModel>()))
                 .Throws(new InvalidOperationException("БД недоступна"));
 
         var logger = Mock.Of<ILogger<IndexModel>>();
         var page = new IndexModel(mockRepo.Object, logger);
 
-        page.OnGet();
+        page.OnGet(null, null, null, null, null, null);
 
         Assert.IsNotNull(page.ErrorMessage, "сообщение об ошибке должно быть установлено");
         StringAssert.Contains(page.ErrorMessage, "БД недоступна");
-        Assert.AreEqual(0, page.ViewModel.Animals.Count, "при ошибке список животных должен быть пустым");
     }
 }

@@ -19,13 +19,24 @@ public class IndexModel : PageModel
         _logger = logger;
     }
 
-    public void OnGet()
+    public void OnGet(int? species, int? gender, int? size, int? ageFrom, int? ageTo, string? search)
     {
         try
         {
+            var filter = new AnimalFilterViewModel
+            {
+                Species = species,
+                Gender = gender,
+                Size = size,
+                AgeFrom = ageFrom,
+                AgeTo = ageTo,
+                SearchQuery = search
+            };
+
             ViewModel = new HomeViewModel
             {
-                Animals = _repo.GetAvailableAnimals()
+                Animals = _repo.GetFilteredAnimals(filter),
+                Filter = filter
             };
         }
         catch (Exception ex)
