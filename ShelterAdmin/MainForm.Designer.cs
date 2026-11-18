@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             StatusPanel = new Panel();
             lblStatus = new Label();
             headerPanel = new Panel();
@@ -42,7 +43,7 @@
             // 
             // StatusPanel
             // 
-            StatusPanel.BackColor = SystemColors.ControlDark;
+            StatusPanel.BackColor = Color.SteelBlue;
             StatusPanel.BorderStyle = BorderStyle.FixedSingle;
             StatusPanel.Controls.Add(lblStatus);
             StatusPanel.Dock = DockStyle.Bottom;
@@ -55,7 +56,7 @@
             // 
             lblStatus.Dock = DockStyle.Left;
             lblStatus.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblStatus.ForeColor = Color.DimGray;
+            lblStatus.ForeColor = Color.PaleTurquoise;
             lblStatus.Location = new Point(0, 0);
             lblStatus.Name = "lblStatus";
             lblStatus.Padding = new Padding(10, 0, 0, 0);
@@ -77,7 +78,7 @@
             // label1
             // 
             label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label1.ForeColor = SystemColors.Control;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
@@ -88,19 +89,29 @@
             // 
             // dgvAnimals
             // 
-            dataGridViewCellStyle1.BackColor = Color.WhiteSmoke;
-            dgvAnimals.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dgvAnimals.BackgroundColor = SystemColors.ButtonShadow;
+            dataGridViewCellStyle4.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dgvAnimals.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvAnimals.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvAnimals.BackgroundColor = SystemColors.GradientInactiveCaption;
             dgvAnimals.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.Navy;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvAnimals.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.Navy;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvAnimals.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvAnimals.DefaultCellStyle = dataGridViewCellStyle6;
             dgvAnimals.Dock = DockStyle.Fill;
             dgvAnimals.GridColor = Color.Gainsboro;
             dgvAnimals.Location = new Point(0, 60);
@@ -119,6 +130,7 @@
             Controls.Add(StatusPanel);
             Name = "MainForm";
             Text = "Админ-панель приюта \"Шанс на жизнь\"";
+            WindowState = FormWindowState.Maximized;
             StatusPanel.ResumeLayout(false);
             headerPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
