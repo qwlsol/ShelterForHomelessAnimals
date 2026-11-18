@@ -32,6 +32,7 @@ public partial class MainForm : Form
             dgvAnimals.DataSource = animals;
 
             ConfigureColumns();
+            lblStatus.Text = $"Всего животных в базе: {animals.Count}";
         }
         catch (Exception ex)
         {
@@ -40,6 +41,7 @@ public partial class MainForm : Form
                 "Ошибка подключения",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
+            lblStatus.Text = "Ошибка загрузки данных";
         }
     }
 
