@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelterApp", "ShelterApp.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelterApp.Tests", "..\ShelterApp.Tests\ShelterApp.Tests.csproj", "{423347B0-2A71-467E-81F4-EF03E06FF0FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShelterAdmin", "..\ShelterAdmin\ShelterAdmin.csproj", "{9EF418F3-71CC-440A-B8AD-DFE32D9B12EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{423347B0-2A71-467E-81F4-EF03E06FF0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{423347B0-2A71-467E-81F4-EF03E06FF0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{423347B0-2A71-467E-81F4-EF03E06FF0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF418F3-71CC-440A-B8AD-DFE32D9B12EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF418F3-71CC-440A-B8AD-DFE32D9B12EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF418F3-71CC-440A-B8AD-DFE32D9B12EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF418F3-71CC-440A-B8AD-DFE32D9B12EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
