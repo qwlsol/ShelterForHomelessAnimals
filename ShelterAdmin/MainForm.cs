@@ -13,7 +13,7 @@ public partial class MainForm : Form
 
         var optionsBuilder = new DbContextOptionsBuilder<ShelterContext>();
 
-        //optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-10;Password=5610");
+        //optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-7;Password=567");
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
 
         _context = new ShelterContext(optionsBuilder.Options);
