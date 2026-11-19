@@ -22,7 +22,7 @@
             <img src="@Model.ViewModel.News.ImagePath" class="img-fluid rounded shadow-sm mb-4" alt="@Model.ViewModel.News.Title" onerror="this.src='/images/no-photo.png'" />
         }
 
-        <div class="mb-4" style="white-space: pre-wrap;">@Model.ViewModel.News.Content</div>
+        <div class="mb-4" style="white-space: pre-wrap;">@Model.ViewModel.News.DetailedContent</div>
 
         @if (Model.ViewModel.RelatedAnimal != null)
         {

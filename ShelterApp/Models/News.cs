@@ -12,4 +12,6 @@ public class News
     [Column("image_path")] public string? ImagePath { get; set; }
     [Column("published_at")] public DateTime PublishedAt { get; set; }
     [Column("animal_id")] public int? AnimalId { get; set; }
+    [Column("detailed_content")] public string? DetailedContent { get; set; }
+    
 }
