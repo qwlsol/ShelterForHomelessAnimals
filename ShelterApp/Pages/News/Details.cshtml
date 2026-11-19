@@ -1,27 +1,36 @@
 ﻿@page
 @model ShelterApp.Pages.News.DetailsModel
 @{
-    ViewData["Title"] = "Новость";
+    ViewData["Title"] = Model.ViewModel.News.Title;
 }
 
 <nav aria-label="breadcrumb" class="mb-3">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-page="/Index">Главная</a></li>
         <li class="breadcrumb-item"><a asp-page="/News/Index">Новости</a></li>
-        <li class="breadcrumb-item active">Новость</li>
+        <li class="breadcrumb-item active">@Model.ViewModel.News.Title</li>
     </ol>
 </nav>
 
 <div class="row">
     <div class="col-lg-8 mx-auto">
-        <h1 class="mb-3">Заголовок новости</h1>
-        <p class="text-muted"><small>01.01.2026</small></p>
+        <h1 class="mb-3">@Model.ViewModel.News.Title</h1>
+        <p class="text-muted"><small>@Model.ViewModel.News.PublishedAt.ToString("dd.MM.yyyy")</small></p>
 
-        <img src="~/images/no-photo.png" class="img-fluid rounded shadow-sm mb-4" alt="Заглушка" />
+        @if (!string.IsNullOrEmpty(Model.ViewModel.News.ImagePath))
+        {
+            <img src="@Model.ViewModel.News.ImagePath" class="img-fluid rounded shadow-sm mb-4" alt="@Model.ViewModel.News.Title" onerror="this.src='/images/no-photo.png'" />
+        }
 
-        <p>Это текст новости-заглушки. Здесь будет подробное описание события или истории питомца приюта.</p>
-        <p>Второй абзац текста-заглушки. Он нужен для того, чтобы показать, как будет выглядеть страница с реальным текстом новости.</p>
-        <p>Третий абзац текста-заглушки. Вы можете заменить этот текст на любой другой.</p>
+        <div class="mb-4" style="white-space: pre-wrap;">@Model.ViewModel.News.DetailedContent</div>
+
+        @if (Model.ViewModel.RelatedAnimal != null)
+        {
+            <div class="alert alert-secondary text-center">
+                <p class="mb-2">Эта новость связана с животным <strong>@Model.ViewModel.RelatedAnimal.Name</strong></p>
+                <a asp-page="/Animals/Details" asp-route-id="@Model.ViewModel.RelatedAnimal.Id" class="btn btn-outline-primary">Перейти к карточке животного</a>
+            </div>
+        }
 
         <hr class="my-4" />
 

@@ -6,54 +6,40 @@
 
 <h1 class="mb-4">Новости приюта</h1>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-    <!-- Карточка 1 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm news-card">
-            <img src="~/images/no-photo.png" class="card-img-top" alt="Заглушка" style="height:240px;object-fit:cover;" />
-            <div class="card-body">
-                <h5 class="card-title">Заголовок новости 1</h5>
-                <p class="text-muted mb-2"><small>01.01.2026</small></p>
-                <p class="card-text">Краткое описание новости-заглушки. Здесь будет располагаться текст о жизни приюта, событиях или питомцах.</p>
+@if (!string.IsNullOrEmpty(Model.ViewModel.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ViewModel.ErrorMessage</div>
+}
+else if (!Model.ViewModel.News.Any())
+{
+    <div class="alert alert-info">Новости пока не добавлены.</div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var news in Model.ViewModel.News)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm news-card">
+                    <img src="@(news.ImagePath ?? "/images/no-photo.png")"
+                         class="card-img-top" alt="@news.Title"
+                         style="height:240px;object-fit:cover;"
+                         onerror="this.src='/images/no-photo.png'" />
+                    <div class="card-body">
+                        <h5 class="card-title">@news.Title</h5>
+                        <p class="text-muted mb-2"><small>@news.PublishedAt.ToString("dd.MM.yyyy")</small></p>
+                        <p class="card-text">
+                            @(news.Content.Length > 150 ? news.Content.Substring(0, 150) + "..." : news.Content)
+                        </p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a asp-page="/News/Details" asp-route-id="@news.Id" class="btn btn-primary w-100">Читать далее</a>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer bg-white border-0">
-                <a asp-page="/News/Details" class="btn btn-primary w-100">Читать далее</a>
-            </div>
-        </div>
+        }
     </div>
-
-    <!-- Карточка 2 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm news-card">
-            <img src="~/images/no-photo.png" class="card-img-top" alt="Заглушка" style="height:240px;object-fit:cover;" />
-            <div class="card-body">
-                <h5 class="card-title">Заголовок новости 2</h5>
-                <p class="text-muted mb-2"><small>02.01.2026</small></p>
-                <p class="card-text">Краткое описание новости-заглушки. Здесь будет располагаться текст о жизни приюта, событиях или питомцах.</p>
-            </div>
-            <div class="card-footer bg-white border-0">
-                <a asp-page="/News/Details" class="btn btn-primary w-100">Читать далее</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Карточка 3 -->
-    <div class="col">
-        <div class="card h-100 shadow-sm news-card">
-            <img src="~/images/no-photo.png" class="card-img-top" alt="Заглушка" style="height:240px;object-fit:cover;" />
-            <div class="card-body">
-                <h5 class="card-title">Заголовок новости 3</h5>
-                <p class="text-muted mb-2"><small>03.01.2026</small></p>
-                <p class="card-text">Краткое описание новости-заглушки. Здесь будет располагаться текст о жизни приюта, событиях или питомцах.</p>
-            </div>
-            <div class="card-footer bg-white border-0">
-                <a asp-page="/News/Details" class="btn btn-primary w-100">Читать далее</a>
-            </div>
-        </div>
-    </div>
-
-</div>
+}
 
 @section Scripts {
     <style>
