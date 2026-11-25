@@ -61,7 +61,22 @@ namespace ShelterAdmin.Forms
                 }
             }
         }
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            var editForm = new NewsEditForm(_newsService, null);
+            if (editForm.ShowDialog() == DialogResult.OK)
+                LoadData();
+        }
 
-        
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvNews.CurrentRow?.DataBoundItem is ShelterApp.Models.News selected)
+            {
+                var editForm = new NewsEditForm(_newsService, selected);
+                if (editForm.ShowDialog() == DialogResult.OK)
+                    LoadData();
+            }
+
+        }
     }
 }
