@@ -30,16 +30,21 @@ public partial class MainForm : Form
         try
         {
             var animals = _animalService.GetAllAnimalsForAdmin();
+
             dgvAnimals.DataSource = animals;
             GridConfigurator.Setup(dgvAnimals);
 
+            dgvAnimals.Visible = true;
+            errorPanel.Visible = false;
 
             lblStatus.Text = $"Всего животных в базе: {animals.Count}";
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Ошибка подключения: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            lblStatus.Text = "Ошибка загрузки данных";
+            dgvAnimals.Visible = false;
+            errorPanel.Visible = true;
+            lblStatus.Text = "Статус: Нет подключения к БД";
+            lblStatus.ForeColor = Color.Red;
         }
     }
 }

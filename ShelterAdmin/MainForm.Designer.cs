@@ -36,9 +36,12 @@
             headerPanel = new Panel();
             label1 = new Label();
             dgvAnimals = new DataGridView();
+            errorPanel = new Panel();
+            lblError = new Label();
             StatusPanel.SuspendLayout();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
+            errorPanel.SuspendLayout();
             SuspendLayout();
             // 
             // StatusPanel
@@ -121,11 +124,35 @@
             dgvAnimals.Size = new Size(800, 360);
             dgvAnimals.TabIndex = 2;
             // 
+            // errorPanel
+            // 
+            errorPanel.BackColor = Color.MistyRose;
+            errorPanel.Controls.Add(lblError);
+            errorPanel.Dock = DockStyle.Fill;
+            errorPanel.Location = new Point(0, 60);
+            errorPanel.Name = "errorPanel";
+            errorPanel.Size = new Size(800, 360);
+            errorPanel.TabIndex = 3;
+            errorPanel.Visible = false;
+            // 
+            // lblError
+            // 
+            lblError.AutoSize = true;
+            lblError.Dock = DockStyle.Fill;
+            lblError.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            lblError.ForeColor = Color.Firebrick;
+            lblError.Location = new Point(0, 0);
+            lblError.Name = "lblError";
+            lblError.Size = new Size(487, 32);
+            lblError.TabIndex = 0;
+            lblError.Text = "Не удалось подключиться к базе данных.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(errorPanel);
             Controls.Add(dgvAnimals);
             Controls.Add(headerPanel);
             Controls.Add(StatusPanel);
@@ -135,6 +162,8 @@
             StatusPanel.ResumeLayout(false);
             headerPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
+            errorPanel.ResumeLayout(false);
+            errorPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -145,5 +174,7 @@
         private Panel headerPanel;
         private DataGridView dgvAnimals;
         private Label label1;
+        private Panel errorPanel;
+        private Label lblError;
     }
 }
