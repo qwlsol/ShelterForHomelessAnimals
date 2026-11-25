@@ -14,7 +14,7 @@ public class NewsEditViewModel
     public int? AnimalId { get; set; }
     public string? ErrorMessage { get; set; }
 
-    public bool Save(NewsService service)
+    public bool Save(INewsService service)
     {
         try
         {

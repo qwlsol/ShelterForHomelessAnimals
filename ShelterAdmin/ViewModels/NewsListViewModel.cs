@@ -9,7 +9,7 @@ public class NewsListViewModel
     public News? SelectedNews { get; set; }
     public string? ErrorMessage { get; set; }
 
-    public void LoadNews(NewsService service)
+    public void LoadNews(INewsService service)
     {
         try
         {
@@ -23,7 +23,7 @@ public class NewsListViewModel
         }
     }
 
-    public void DeleteSelectedNews(NewsService service)
+    public void DeleteSelectedNews(INewsService service)
     {
         if (SelectedNews == null) return;
 

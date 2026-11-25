@@ -3,7 +3,7 @@ using ShelterApp.Models;
 
 namespace ShelterAdmin.Services;
 
-public class NewsService
+public class NewsService : INewsService
 {
     private ShelterContext _context; 
 

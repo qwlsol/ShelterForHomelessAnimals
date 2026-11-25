@@ -8,9 +8,9 @@ namespace ShelterAdmin.Forms
 {
     public partial class NewsListForm : Form
     {
-        private readonly NewsService _newsService;
+        private readonly INewsService _newsService;
         private readonly NewsListViewModel _viewModel = new();
-        public NewsListForm(NewsService newsService)
+        public NewsListForm(INewsService newsService)
         {
             InitializeComponent();
             _newsService = newsService;
@@ -33,7 +33,6 @@ namespace ShelterAdmin.Forms
                 dgvNews.Visible = true;
                 dgvNews.DataSource = _viewModel.NewsList;
 
-                // Скрываем лишние колонки, если нужно
                 if (dgvNews.Columns["Id"] != null) dgvNews.Columns["Id"].Visible = false;
                 if (dgvNews.Columns["DetailedContent"] != null) dgvNews.Columns["DetailedContent"].Visible = false;
                 if (dgvNews.Columns["Content"] != null) dgvNews.Columns["Content"].Visible = false;

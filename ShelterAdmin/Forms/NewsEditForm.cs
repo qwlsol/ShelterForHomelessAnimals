@@ -2,14 +2,16 @@
 using ShelterAdmin.ViewModels;
 using ShelterApp.Models;
 
-
 namespace ShelterAdmin.Forms
 {
     public partial class NewsEditForm : Form
     {
-        private NewsService _newsService; 
+        // МЕНЯЕМ ТИП С NewsService НА INewsService
+        private INewsService _newsService;
         private NewsEditViewModel _viewModel;
-        public NewsEditForm(NewsService newsService, News? existingNews)
+
+        // МЕНЯЕМ ТИП В КОНСТРУКТОРЕ
+        public NewsEditForm(INewsService newsService, News? existingNews)
         {
             InitializeComponent();
             _newsService = newsService;
@@ -32,6 +34,7 @@ namespace ShelterAdmin.Forms
             txtImagePath.DataBindings.Add("Text", _viewModel, nameof(_viewModel.ImagePath));
             dtpPublishedAt.DataBindings.Add("Value", _viewModel, nameof(_viewModel.PublishedAt));
         }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (_viewModel.Save(_newsService))
@@ -45,13 +48,11 @@ namespace ShelterAdmin.Forms
                 lblError.Visible = true;
             }
         }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
-
     }
 }
-    
-
