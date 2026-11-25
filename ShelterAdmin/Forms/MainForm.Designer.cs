@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             StatusPanel = new Panel();
+            btnNews = new Button();
             lblStatus = new Label();
             headerPanel = new Panel();
             label1 = new Label();
@@ -48,12 +49,24 @@
             // 
             StatusPanel.BackColor = Color.SteelBlue;
             StatusPanel.BorderStyle = BorderStyle.FixedSingle;
+            StatusPanel.Controls.Add(btnNews);
             StatusPanel.Controls.Add(lblStatus);
             StatusPanel.Dock = DockStyle.Bottom;
             StatusPanel.Location = new Point(0, 420);
             StatusPanel.Name = "StatusPanel";
             StatusPanel.Size = new Size(800, 30);
             StatusPanel.TabIndex = 0;
+            // 
+            // btnNews
+            // 
+            btnNews.BackColor = Color.SkyBlue;
+            btnNews.Location = new Point(629, 3);
+            btnNews.Name = "btnNews";
+            btnNews.Size = new Size(158, 22);
+            btnNews.TabIndex = 1;
+            btnNews.Text = "Управление новостями";
+            btnNews.UseVisualStyleBackColor = false;
+            btnNews.Click += btnNews_Click;
             // 
             // lblStatus
             // 
@@ -176,5 +189,6 @@
         private Label label1;
         private Panel errorPanel;
         private Label lblError;
+        private Button btnNews;
     }
 }

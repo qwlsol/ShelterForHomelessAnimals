@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using ShelterAdmin.Forms;
 using ShelterAdmin.Services;
 using ShelterAdmin.Utils;
-using ShelterApp.Data;
 using ShelterAdmin.Utils;
+using ShelterApp.Data;
 
 namespace ShelterAdmin;
 
@@ -46,5 +47,17 @@ public partial class MainForm : Form
             lblStatus.Text = "Статус: Нет подключения к БД";
             lblStatus.ForeColor = Color.Red;
         }
+    }
+
+    private void btnNews_Click(object sender, EventArgs e)
+    {
+        DbContextOptionsBuilder<ShelterContext> optionsBuilder = new DbContextOptionsBuilder<ShelterContext>();
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
+
+        ShelterContext context = new ShelterContext(optionsBuilder.Options);
+        NewsService newsService = new NewsService(context);
+
+        NewsListForm newsForm = new NewsListForm(newsService);
+        newsForm.ShowDialog();
     }
 }

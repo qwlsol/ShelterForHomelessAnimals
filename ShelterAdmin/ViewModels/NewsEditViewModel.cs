@@ -25,7 +25,9 @@ public class NewsEditViewModel
                 Content = this.Content,
                 DetailedContent = this.DetailedContent,
                 ImagePath = this.ImagePath,
-                PublishedAt = this.PublishedAt,
+
+                PublishedAt = DateTime.SpecifyKind(this.PublishedAt, DateTimeKind.Unspecified),
+
                 AnimalId = this.AnimalId
             };
 
@@ -36,9 +38,9 @@ public class NewsEditViewModel
 
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            ErrorMessage = "Ошибка сохранения. Проверьте подключение к БД.";
+            ErrorMessage = $"Ошибка: {ex.InnerException?.Message ?? ex.Message}";
             return false;
         }
     }
