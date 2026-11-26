@@ -50,7 +50,7 @@
             label8 = new Label();
             label9 = new Label();
             label10 = new Label();
-            label11 = new Label();
+            lblCRUD = new Label();
             ((System.ComponentModel.ISupportInitialize)numAge).BeginInit();
             SuspendLayout();
             // 
@@ -90,8 +90,10 @@
             // 
             // cmbSpecies
             // 
+            cmbSpecies.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSpecies.Font = new Font("Segoe UI", 12F);
             cmbSpecies.FormattingEnabled = true;
+            cmbSpecies.Items.AddRange(new object[] { "Собака", "Кошка" });
             cmbSpecies.Location = new Point(234, 312);
             cmbSpecies.Name = "cmbSpecies";
             cmbSpecies.Size = new Size(232, 29);
@@ -99,8 +101,10 @@
             // 
             // cmbGender
             // 
+            cmbGender.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbGender.Font = new Font("Segoe UI", 12F);
             cmbGender.FormattingEnabled = true;
+            cmbGender.Items.AddRange(new object[] { "Мальчик", "Девочка" });
             cmbGender.Location = new Point(234, 356);
             cmbGender.Name = "cmbGender";
             cmbGender.Size = new Size(232, 29);
@@ -108,8 +112,10 @@
             // 
             // cmbSize
             // 
+            cmbSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSize.Font = new Font("Segoe UI", 12F);
             cmbSize.FormattingEnabled = true;
+            cmbSize.Items.AddRange(new object[] { "Маленький", "Средний", "Крупный" });
             cmbSize.Location = new Point(234, 401);
             cmbSize.Name = "cmbSize";
             cmbSize.Size = new Size(232, 29);
@@ -117,8 +123,10 @@
             // 
             // cmbStatus
             // 
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Font = new Font("Segoe UI", 12F);
             cmbStatus.FormattingEnabled = true;
+            cmbStatus.Items.AddRange(new object[] { "Ищет дом", "На передержке", "Пристроен" });
             cmbStatus.Location = new Point(234, 446);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.Size = new Size(232, 29);
@@ -128,9 +136,11 @@
             // 
             numAge.Font = new Font("Segoe UI", 12F);
             numAge.Location = new Point(234, 495);
+            numAge.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numAge.Name = "numAge";
             numAge.Size = new Size(232, 29);
             numAge.TabIndex = 8;
+            numAge.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // btnSave
             // 
@@ -143,6 +153,7 @@
             btnSave.TabIndex = 9;
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
@@ -155,6 +166,7 @@
             btnCancel.TabIndex = 10;
             btnCancel.Text = "Отмена";
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // dtpArrivalDate
             // 
@@ -264,25 +276,25 @@
             label10.TabIndex = 21;
             label10.Text = "Дата поступления:";
             // 
-            // label11
+            // lblCRUD
             // 
-            label11.BackColor = Color.SteelBlue;
-            label11.Dock = DockStyle.Top;
-            label11.Font = new Font("Segoe UI", 18F);
-            label11.ForeColor = SystemColors.Control;
-            label11.Location = new Point(0, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(518, 56);
-            label11.TabIndex = 22;
-            label11.Text = "Анкета";
-            label11.TextAlign = ContentAlignment.MiddleCenter;
+            lblCRUD.BackColor = Color.SteelBlue;
+            lblCRUD.Dock = DockStyle.Top;
+            lblCRUD.Font = new Font("Segoe UI", 18F);
+            lblCRUD.ForeColor = SystemColors.Control;
+            lblCRUD.Location = new Point(0, 0);
+            lblCRUD.Name = "lblCRUD";
+            lblCRUD.Size = new Size(518, 56);
+            lblCRUD.TabIndex = 22;
+            lblCRUD.Text = "Анкета";
+            lblCRUD.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // AnimalEditForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(518, 679);
-            Controls.Add(label11);
+            Controls.Add(lblCRUD);
             Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -338,6 +350,6 @@
         private Label label8;
         private Label label9;
         private Label label10;
-        private Label label11;
+        private Label lblCRUD;
     }
 }
