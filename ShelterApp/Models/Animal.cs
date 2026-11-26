@@ -16,7 +16,7 @@ public class Animal
     [Column("description")] public string? Description { get; set; }
     [Column("health_info")] public string? HealthInfo { get; set; }
     [Column("status")] public int Status { get; set; }
-    [Column("arrival_date")] public DateTime ArrivalDate { get; set; }
+    [Column("arrival_date", TypeName = "timestamp without time zone")] public DateTime ArrivalDate { get; set; }
 
     public List<Photo> Photos { get; set; } = new();
 

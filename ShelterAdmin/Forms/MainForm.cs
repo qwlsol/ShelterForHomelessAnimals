@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using ShelterAdmin.Forms;
 using ShelterAdmin.Services;
 using ShelterAdmin.Utils;
 using ShelterApp.Data;
+using ShelterApp.Models;
 
 namespace ShelterAdmin;
 
@@ -47,4 +49,45 @@ public partial class MainForm : Form
         }
     }
 
+    private void btnAdd_Click(object sender, EventArgs e)
+    {
+        using var form = new AnimalEditForm(_animalService);
+        if (form.ShowDialog() == DialogResult.OK)
+        {
+            LoadData();
+        }
+    }
+
+    private void btnEdit_Click(object sender, EventArgs e)
+    {
+        if (dgvAnimals.CurrentRow?.DataBoundItem is not Animal selectedAnimal)
+        {
+            MessageBox.Show("Выберите животное из таблицы.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        using var form = new AnimalEditForm(_animalService, selectedAnimal);
+        if (form.ShowDialog() == DialogResult.OK)
+        {
+            LoadData();
+        }
+    }
+
+    private void btnDelete_Click(object sender, EventArgs e)
+    {
+        if (dgvAnimals.CurrentRow?.DataBoundItem is not Animal selectedAnimal)
+        {
+            MessageBox.Show("Выберите животное из таблицы.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return;
+        }
+
+        var result = MessageBox.Show($"Вы уверены, что хотите удалить {selectedAnimal.Name}?",
+                                     "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+        if (result == DialogResult.Yes)
+        {
+            _animalService.DeleteAnimal(selectedAnimal.Id);
+            LoadData();
+        }
+    }
 }

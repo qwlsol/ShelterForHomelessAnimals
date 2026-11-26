@@ -69,6 +69,7 @@
             txtBreed.Name = "txtBreed";
             txtBreed.Size = new Size(232, 29);
             txtBreed.TabIndex = 1;
+            txtBreed.Text = "метис";
             // 
             // txtDescription
             // 

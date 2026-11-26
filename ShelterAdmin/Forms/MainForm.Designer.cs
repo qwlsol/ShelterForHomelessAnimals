@@ -174,6 +174,7 @@
             btnDelete.TabIndex = 2;
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnEdit
             // 
@@ -185,6 +186,7 @@
             btnEdit.TabIndex = 1;
             btnEdit.Text = "Редактировать";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnAdd
             // 
@@ -196,6 +198,7 @@
             btnAdd.TabIndex = 0;
             btnAdd.Text = "Добавить";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // MainForm
             // 
