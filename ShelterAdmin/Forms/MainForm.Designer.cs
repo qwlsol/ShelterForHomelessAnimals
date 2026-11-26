@@ -38,10 +38,15 @@
             dgvAnimals = new DataGridView();
             errorPanel = new Panel();
             lblError = new Label();
+            toolPanel = new Panel();
+            btnDelete = new Button();
+            btnEdit = new Button();
+            btnAdd = new Button();
             StatusPanel.SuspendLayout();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             errorPanel.SuspendLayout();
+            toolPanel.SuspendLayout();
             SuspendLayout();
             // 
             // StatusPanel
@@ -117,11 +122,11 @@
             dgvAnimals.DefaultCellStyle = dataGridViewCellStyle3;
             dgvAnimals.Dock = DockStyle.Fill;
             dgvAnimals.GridColor = Color.Gainsboro;
-            dgvAnimals.Location = new Point(0, 60);
+            dgvAnimals.Location = new Point(0, 124);
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.ReadOnly = true;
             dgvAnimals.RowTemplate.Height = 30;
-            dgvAnimals.Size = new Size(800, 360);
+            dgvAnimals.Size = new Size(800, 296);
             dgvAnimals.TabIndex = 2;
             // 
             // errorPanel
@@ -129,9 +134,9 @@
             errorPanel.BackColor = Color.MistyRose;
             errorPanel.Controls.Add(lblError);
             errorPanel.Dock = DockStyle.Fill;
-            errorPanel.Location = new Point(0, 60);
+            errorPanel.Location = new Point(0, 124);
             errorPanel.Name = "errorPanel";
-            errorPanel.Size = new Size(800, 360);
+            errorPanel.Size = new Size(800, 296);
             errorPanel.TabIndex = 3;
             errorPanel.Visible = false;
             // 
@@ -147,6 +152,51 @@
             lblError.TabIndex = 0;
             lblError.Text = "Не удалось подключиться к базе данных.";
             // 
+            // toolPanel
+            // 
+            toolPanel.BackColor = SystemColors.GradientActiveCaption;
+            toolPanel.Controls.Add(btnDelete);
+            toolPanel.Controls.Add(btnEdit);
+            toolPanel.Controls.Add(btnAdd);
+            toolPanel.Dock = DockStyle.Top;
+            toolPanel.Location = new Point(0, 60);
+            toolPanel.Name = "toolPanel";
+            toolPanel.Size = new Size(800, 64);
+            toolPanel.TabIndex = 4;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDelete.Font = new Font("Segoe UI", 12F);
+            btnDelete.Location = new Point(654, 15);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(134, 33);
+            btnDelete.TabIndex = 2;
+            btnDelete.Text = "Удалить";
+            btnDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEdit.Font = new Font("Segoe UI", 12F);
+            btnEdit.Location = new Point(514, 15);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(134, 33);
+            btnEdit.TabIndex = 1;
+            btnEdit.Text = "Редактировать";
+            btnEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAdd.Font = new Font("Segoe UI", 12F);
+            btnAdd.Location = new Point(374, 15);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(134, 33);
+            btnAdd.TabIndex = 0;
+            btnAdd.Text = "Добавить";
+            btnAdd.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -154,6 +204,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(errorPanel);
             Controls.Add(dgvAnimals);
+            Controls.Add(toolPanel);
             Controls.Add(headerPanel);
             Controls.Add(StatusPanel);
             Name = "MainForm";
@@ -164,6 +215,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             errorPanel.ResumeLayout(false);
             errorPanel.PerformLayout();
+            toolPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -176,5 +228,9 @@
         private Label label1;
         private Panel errorPanel;
         private Label lblError;
+        private Panel toolPanel;
+        private Button btnDelete;
+        private Button btnEdit;
+        private Button btnAdd;
     }
 }

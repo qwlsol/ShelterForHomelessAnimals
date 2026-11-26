@@ -46,4 +46,5 @@ public partial class MainForm : Form
             lblStatus.ForeColor = Color.Red;
         }
     }
+
 }
