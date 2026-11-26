@@ -176,6 +176,7 @@
             dtpArrivalDate.Name = "dtpArrivalDate";
             dtpArrivalDate.Size = new Size(232, 29);
             dtpArrivalDate.TabIndex = 11;
+            dtpArrivalDate.Value = new DateTime(2026, 11, 26, 11, 12, 45, 0);
             // 
             // label1
             // 
@@ -294,6 +295,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             ClientSize = new Size(518, 679);
             Controls.Add(lblCRUD);
             Controls.Add(label10);
@@ -318,7 +320,9 @@
             Controls.Add(txtDescription);
             Controls.Add(txtBreed);
             Controls.Add(txtName);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
+            MinimizeBox = false;
             Name = "AnimalEditForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Анкета животного";
