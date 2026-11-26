@@ -5,7 +5,7 @@ using ShelterApp.Models;
 
 namespace ShelterAdmin.Services;
 
-public class AnimalService
+public class AnimalService : IAnimalService
 {
     private readonly ShelterContext _context;
 

@@ -9,7 +9,7 @@ namespace ShelterAdmin;
 
 public partial class MainForm : Form
 {
-    private readonly AnimalService _animalService;
+    private readonly IAnimalService _animalService;
 
     public MainForm()
     {

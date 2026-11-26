@@ -15,11 +15,11 @@ namespace ShelterAdmin.Forms
 {
     public partial class AnimalEditForm : Form
     {
-        private readonly AnimalService _service;
+        private readonly IAnimalService _service;
         private readonly AnimalEditViewModel _viewModel;
         private readonly bool _isEditMode;
 
-        public AnimalEditForm(AnimalService service, Animal animal = null)
+        public AnimalEditForm(IAnimalService service, Animal animal = null)
         {
             _service = service;
             _isEditMode = animal != null;
