@@ -38,14 +38,14 @@
             // 
             // txtTitle
             // 
-            txtTitle.Location = new Point(20, 40);
+            txtTitle.Location = new Point(25, 42);
             txtTitle.Name = "txtTitle";
             txtTitle.Size = new Size(400, 23);
             txtTitle.TabIndex = 1;
             // 
             // txtContent
             // 
-            txtContent.Location = new Point(20, 100);
+            txtContent.Location = new Point(25, 102);
             txtContent.Multiline = true;
             txtContent.Name = "txtContent";
             txtContent.Size = new Size(400, 60);
@@ -53,7 +53,7 @@
             // 
             // txtDetailed
             // 
-            txtDetailed.Location = new Point(20, 200);
+            txtDetailed.Location = new Point(25, 202);
             txtDetailed.Multiline = true;
             txtDetailed.Name = "txtDetailed";
             txtDetailed.ScrollBars = ScrollBars.Vertical;
@@ -62,7 +62,7 @@
             // 
             // txtImagePath
             // 
-            txtImagePath.Location = new Point(20, 360);
+            txtImagePath.Location = new Point(25, 362);
             txtImagePath.Name = "txtImagePath";
             txtImagePath.Size = new Size(400, 23);
             txtImagePath.TabIndex = 7;
@@ -70,7 +70,7 @@
             // dtpPublishedAt
             // 
             dtpPublishedAt.Format = DateTimePickerFormat.Short;
-            dtpPublishedAt.Location = new Point(20, 420);
+            dtpPublishedAt.Location = new Point(25, 422);
             dtpPublishedAt.Name = "dtpPublishedAt";
             dtpPublishedAt.Size = new Size(200, 23);
             dtpPublishedAt.TabIndex = 9;
@@ -79,7 +79,7 @@
             // 
             lblError.AutoSize = true;
             lblError.ForeColor = Color.Firebrick;
-            lblError.Location = new Point(20, 460);
+            lblError.Location = new Point(25, 462);
             lblError.Name = "lblError";
             lblError.Size = new Size(53, 15);
             lblError.TabIndex = 10;
@@ -90,7 +90,7 @@
             // 
             btnSave.BackColor = Color.SteelBlue;
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(240, 450);
+            btnSave.Location = new Point(245, 452);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(100, 30);
             btnSave.TabIndex = 11;
@@ -100,17 +100,20 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(350, 450);
+            btnCancel.BackColor = Color.SteelBlue;
+            btnCancel.ForeColor = SystemColors.ButtonFace;
+            btnCancel.Location = new Point(355, 452);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(80, 30);
             btnCancel.TabIndex = 12;
             btnCancel.Text = "Отмена";
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Location = new Point(20, 20);
+            lblTitle.Location = new Point(25, 22);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(68, 15);
             lblTitle.TabIndex = 0;
@@ -119,7 +122,7 @@
             // lblContent
             // 
             lblContent.AutoSize = true;
-            lblContent.Location = new Point(20, 80);
+            lblContent.Location = new Point(25, 82);
             lblContent.Name = "lblContent";
             lblContent.Size = new Size(170, 15);
             lblContent.TabIndex = 2;
@@ -128,7 +131,7 @@
             // lblDetailed
             // 
             lblDetailed.AutoSize = true;
-            lblDetailed.Location = new Point(20, 180);
+            lblDetailed.Location = new Point(25, 182);
             lblDetailed.Name = "lblDetailed";
             lblDetailed.Size = new Size(194, 15);
             lblDetailed.TabIndex = 4;
@@ -137,7 +140,7 @@
             // lblImage
             // 
             lblImage.AutoSize = true;
-            lblImage.Location = new Point(20, 340);
+            lblImage.Location = new Point(25, 342);
             lblImage.Name = "lblImage";
             lblImage.Size = new Size(282, 15);
             lblImage.TabIndex = 6;
@@ -146,7 +149,7 @@
             // lblDate
             // 
             lblDate.AutoSize = true;
-            lblDate.Location = new Point(20, 400);
+            lblDate.Location = new Point(25, 402);
             lblDate.Name = "lblDate";
             lblDate.Size = new Size(105, 15);
             lblDate.TabIndex = 8;
@@ -154,7 +157,8 @@
             // 
             // NewsEditForm
             // 
-            ClientSize = new Size(460, 510);
+            AutoValidate = AutoValidate.EnablePreventFocusChange;
+            ClientSize = new Size(460, 503);
             Controls.Add(lblTitle);
             Controls.Add(txtTitle);
             Controls.Add(lblContent);

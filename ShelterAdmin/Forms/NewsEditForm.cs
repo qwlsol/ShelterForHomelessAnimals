@@ -6,11 +6,10 @@ namespace ShelterAdmin.Forms
 {
     public partial class NewsEditForm : Form
     {
-        // МЕНЯЕМ ТИП С NewsService НА INewsService
+       
         private INewsService _newsService;
         private NewsEditViewModel _viewModel;
 
-        // МЕНЯЕМ ТИП В КОНСТРУКТОРЕ
         public NewsEditForm(INewsService newsService, News? existingNews)
         {
             InitializeComponent();

@@ -17,8 +17,8 @@ public partial class MainForm : Form
 
         var optionsBuilder = new DbContextOptionsBuilder<ShelterContext>();
 
-        //optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-7;Password=567");
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
+        optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-7;Password=567");
+        //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
 
         var context = new ShelterContext(optionsBuilder.Options);
         _animalService = new AnimalService(context);
@@ -52,7 +52,8 @@ public partial class MainForm : Form
     private void btnNews_Click(object sender, EventArgs e)
     {
         DbContextOptionsBuilder<ShelterContext> optionsBuilder = new DbContextOptionsBuilder<ShelterContext>();
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
+        //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
+        optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-7;Password=567");
 
         ShelterContext context = new ShelterContext(optionsBuilder.Options);
         NewsService newsService = new NewsService(context);

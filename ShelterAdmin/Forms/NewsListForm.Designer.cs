@@ -49,7 +49,7 @@
             // 
             // topPanel
             // 
-            topPanel.BackColor = SystemColors.ControlLight;
+            topPanel.BackColor = Color.SteelBlue;
             topPanel.Controls.Add(btnAdd);
             topPanel.Controls.Add(btnEdit);
             topPanel.Controls.Add(btnDelete);
@@ -62,6 +62,7 @@
             // 
             // btnAdd
             // 
+            btnAdd.ForeColor = SystemColors.ButtonFace;
             btnAdd.Location = new Point(10, 10);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(100, 30);
@@ -71,6 +72,7 @@
             // 
             // btnEdit
             // 
+            btnEdit.ForeColor = SystemColors.ButtonFace;
             btnEdit.Location = new Point(120, 10);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(100, 30);
@@ -80,6 +82,7 @@
             // 
             // btnDelete
             // 
+            btnDelete.ForeColor = SystemColors.ButtonFace;
             btnDelete.Location = new Point(230, 10);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(100, 30);
@@ -89,6 +92,7 @@
             // 
             // btnRefresh
             // 
+            btnRefresh.ForeColor = SystemColors.ButtonFace;
             btnRefresh.Location = new Point(340, 10);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(100, 30);

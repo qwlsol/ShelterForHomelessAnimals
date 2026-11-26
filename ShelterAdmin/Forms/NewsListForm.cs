@@ -36,6 +36,16 @@ namespace ShelterAdmin.Forms
                 if (dgvNews.Columns["Id"] != null) dgvNews.Columns["Id"].Visible = false;
                 if (dgvNews.Columns["DetailedContent"] != null) dgvNews.Columns["DetailedContent"].Visible = false;
                 if (dgvNews.Columns["Content"] != null) dgvNews.Columns["Content"].Visible = false;
+
+                if (dgvNews.Columns["Title"] != null) dgvNews.Columns["Title"].HeaderText = "Заголовок";
+                if (dgvNews.Columns["ImagePath"] != null) dgvNews.Columns["ImagePath"].HeaderText = "Картинка";
+
+                if (dgvNews.Columns["PublishedAt"] != null)
+                {
+                    dgvNews.Columns["PublishedAt"].HeaderText = "Дата публикации";
+                    dgvNews.Columns["PublishedAt"].DefaultCellStyle.Format = "dd.MM.yyyy";
+                }
+                if (dgvNews.Columns["AnimalID"] != null) dgvNews.Columns["AnimalID"].HeaderText = "ID животного";
             }
         }
 
