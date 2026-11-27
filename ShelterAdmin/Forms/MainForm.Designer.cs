@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             StatusPanel = new Panel();
             lblStatus = new Label();
+            btnNews = new Button();
             headerPanel = new Panel();
             label1 = new Label();
             dgvAnimals = new DataGridView();
@@ -49,10 +50,11 @@
             StatusPanel.BackColor = Color.SteelBlue;
             StatusPanel.BorderStyle = BorderStyle.FixedSingle;
             StatusPanel.Controls.Add(lblStatus);
+            StatusPanel.Controls.Add(btnNews);
             StatusPanel.Dock = DockStyle.Bottom;
-            StatusPanel.Location = new Point(0, 420);
+            StatusPanel.Location = new Point(0, 406);
             StatusPanel.Name = "StatusPanel";
-            StatusPanel.Size = new Size(800, 30);
+            StatusPanel.Size = new Size(800, 44);
             StatusPanel.TabIndex = 0;
             // 
             // lblStatus
@@ -63,10 +65,23 @@
             lblStatus.Location = new Point(0, 0);
             lblStatus.Name = "lblStatus";
             lblStatus.Padding = new Padding(10, 0, 0, 0);
-            lblStatus.Size = new Size(203, 28);
+            lblStatus.Size = new Size(203, 42);
             lblStatus.TabIndex = 0;
             lblStatus.Text = "Всего животных в базе: 0";
             lblStatus.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnNews
+            // 
+            btnNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNews.BackColor = Color.SteelBlue;
+            btnNews.ForeColor = SystemColors.ButtonFace;
+            btnNews.Location = new Point(629, 5);
+            btnNews.Name = "btnNews";
+            btnNews.Size = new Size(158, 31);
+            btnNews.TabIndex = 1;
+            btnNews.Text = "Управление новостями";
+            btnNews.UseVisualStyleBackColor = false;
+            btnNews.Click += btnNews_Click;
             // 
             // headerPanel
             // 
@@ -121,7 +136,7 @@
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.ReadOnly = true;
             dgvAnimals.RowTemplate.Height = 30;
-            dgvAnimals.Size = new Size(800, 360);
+            dgvAnimals.Size = new Size(800, 346);
             dgvAnimals.TabIndex = 2;
             // 
             // errorPanel
@@ -131,7 +146,7 @@
             errorPanel.Dock = DockStyle.Fill;
             errorPanel.Location = new Point(0, 60);
             errorPanel.Name = "errorPanel";
-            errorPanel.Size = new Size(800, 360);
+            errorPanel.Size = new Size(800, 346);
             errorPanel.TabIndex = 3;
             errorPanel.Visible = false;
             // 
@@ -176,5 +191,6 @@
         private Label label1;
         private Panel errorPanel;
         private Label lblError;
+        private Button btnNews;
     }
 }

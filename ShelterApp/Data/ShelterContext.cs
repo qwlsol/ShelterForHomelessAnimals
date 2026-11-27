@@ -12,4 +12,11 @@ public class ShelterContext : DbContext
     public DbSet<Adopter> Adopters => Set<Adopter>();
     public DbSet<AdoptionRequest> AdoptionRequests => Set<AdoptionRequest>();
     public DbSet<News> News => Set<News>();
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+        base.OnConfiguring(optionsBuilder);
+    }
 }
