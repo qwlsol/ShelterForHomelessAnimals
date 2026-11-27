@@ -2,15 +2,8 @@
 {
     partial class MainForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,75 +15,51 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            StatusPanel = new Panel();
-            lblStatus = new Label();
-            btnNews = new Button();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             headerPanel = new Panel();
             label1 = new Label();
+            tabControl = new TabControl();
+            tabAnimals = new TabPage();
+            errorPanelAnimals = new Panel();
+            lblErrorAnimals = new Label();
+            StatusPanelAnimals = new Panel();
+            lblStatusAnimals = new Label();
             dgvAnimals = new DataGridView();
-            errorPanel = new Panel();
-            lblError = new Label();
-            toolPanel = new Panel();
-            btnDelete = new Button();
-            btnEdit = new Button();
-            btnAdd = new Button();
-            StatusPanel.SuspendLayout();
+            toolPanelAnimals = new Panel();
+            btnDeleteAnimal = new Button();
+            btnEditAnimal = new Button();
+            btnAddAnimal = new Button();
+            tabNews = new TabPage();
+            StatusPanelNews = new Panel();
+            lblStatusNews = new Label();
+            dgvNews = new DataGridView();
+            toolPanelNews = new Panel();
+            btnRefreshNews = new Button();
+            btnDeleteNews = new Button();
+            btnEditNews = new Button();
+            btnAddNews = new Button();
+            errorPanelNews = new Panel();
+            lblErrorNews = new Label();
             headerPanel.SuspendLayout();
+            tabControl.SuspendLayout();
+            tabAnimals.SuspendLayout();
+            errorPanelAnimals.SuspendLayout();
+            StatusPanelAnimals.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
-            errorPanel.SuspendLayout();
-            toolPanel.SuspendLayout();
+            toolPanelAnimals.SuspendLayout();
+            tabNews.SuspendLayout();
+            StatusPanelNews.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvNews).BeginInit();
+            toolPanelNews.SuspendLayout();
+            errorPanelNews.SuspendLayout();
             SuspendLayout();
-            // 
-            // StatusPanel
-            // 
-            StatusPanel.BackColor = Color.SteelBlue;
-            StatusPanel.BorderStyle = BorderStyle.FixedSingle;
-            StatusPanel.Controls.Add(lblStatus);
-            StatusPanel.Dock = DockStyle.Bottom;
-            StatusPanel.Location = new Point(0, 420);
-            StatusPanel.Name = "StatusPanel";
-            StatusPanel.Size = new Size(800, 30);
-            StatusPanel.Controls.Add(btnNews);
-            StatusPanel.Dock = DockStyle.Bottom;
-            StatusPanel.Location = new Point(0, 406);
-            StatusPanel.Name = "StatusPanel";
-            StatusPanel.Size = new Size(800, 44);
-            StatusPanel.TabIndex = 0;
-            // 
-            // lblStatus
-            // 
-            lblStatus.Dock = DockStyle.Left;
-            lblStatus.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            lblStatus.ForeColor = Color.PaleTurquoise;
-            lblStatus.Location = new Point(0, 0);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Padding = new Padding(10, 0, 0, 0);
-            lblStatus.Size = new Size(203, 28);
-            lblStatus.TabIndex = 0;
-            lblStatus.Text = "Всего животных в базе: 0";
-            lblStatus.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // btnNews
-            // 
-            btnNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnNews.BackColor = Color.SteelBlue;
-            btnNews.ForeColor = SystemColors.ButtonFace;
-            btnNews.Location = new Point(629, 5);
-            btnNews.Name = "btnNews";
-            btnNews.Size = new Size(158, 31);
-            btnNews.TabIndex = 1;
-            btnNews.Text = "Управление новостями";
-            btnNews.UseVisualStyleBackColor = false;
-            btnNews.Click += btnNews_Click;
             // 
             // headerPanel
             // 
@@ -99,7 +68,7 @@
             headerPanel.Dock = DockStyle.Top;
             headerPanel.Location = new Point(0, 0);
             headerPanel.Name = "headerPanel";
-            headerPanel.Size = new Size(800, 60);
+            headerPanel.Size = new Size(1000, 60);
             headerPanel.TabIndex = 1;
             // 
             // label1
@@ -109,10 +78,83 @@
             label1.ForeColor = SystemColors.Control;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(800, 60);
+            label1.Size = new Size(1000, 60);
             label1.TabIndex = 0;
-            label1.Text = "База животных приюта «Шанс на жизнь»";
+            label1.Text = "Админ-панель приюта «Шанс на жизнь»";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tabControl
+            // 
+            tabControl.Controls.Add(tabAnimals);
+            tabControl.Controls.Add(tabNews);
+            tabControl.Dock = DockStyle.Fill;
+            tabControl.Location = new Point(0, 60);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new Size(1000, 540);
+            tabControl.TabIndex = 2;
+            // 
+            // tabAnimals
+            // 
+            tabAnimals.Controls.Add(errorPanelAnimals);
+            tabAnimals.Controls.Add(StatusPanelAnimals);
+            tabAnimals.Controls.Add(dgvAnimals);
+            tabAnimals.Controls.Add(toolPanelAnimals);
+            tabAnimals.Location = new Point(4, 24);
+            tabAnimals.Name = "tabAnimals";
+            tabAnimals.Padding = new Padding(3);
+            tabAnimals.Size = new Size(992, 512);
+            tabAnimals.TabIndex = 0;
+            tabAnimals.Text = "Животные";
+            tabAnimals.UseVisualStyleBackColor = true;
+            // 
+            // errorPanelAnimals
+            // 
+            errorPanelAnimals.BackColor = Color.MistyRose;
+            errorPanelAnimals.Controls.Add(lblErrorAnimals);
+            errorPanelAnimals.Dock = DockStyle.Fill;
+            errorPanelAnimals.Location = new Point(3, 67);
+            errorPanelAnimals.Name = "errorPanelAnimals";
+            errorPanelAnimals.Size = new Size(986, 398);
+            errorPanelAnimals.TabIndex = 3;
+            errorPanelAnimals.Visible = false;
+            // 
+            // lblErrorAnimals
+            // 
+            lblErrorAnimals.AutoSize = true;
+            lblErrorAnimals.Dock = DockStyle.Fill;
+            lblErrorAnimals.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            lblErrorAnimals.ForeColor = Color.Firebrick;
+            lblErrorAnimals.Location = new Point(0, 0);
+            lblErrorAnimals.Name = "lblErrorAnimals";
+            lblErrorAnimals.Size = new Size(487, 32);
+            lblErrorAnimals.TabIndex = 0;
+            lblErrorAnimals.Text = "Не удалось подключиться к базе данных.";
+            lblErrorAnimals.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // StatusPanelAnimals
+            // 
+            StatusPanelAnimals.BackColor = Color.SteelBlue;
+            StatusPanelAnimals.BorderStyle = BorderStyle.FixedSingle;
+            StatusPanelAnimals.Controls.Add(lblStatusAnimals);
+            StatusPanelAnimals.Dock = DockStyle.Bottom;
+            StatusPanelAnimals.Location = new Point(3, 465);
+            StatusPanelAnimals.Name = "StatusPanelAnimals";
+            StatusPanelAnimals.Size = new Size(986, 44);
+            StatusPanelAnimals.TabIndex = 0;
+            // 
+            // lblStatusAnimals
+            // 
+            lblStatusAnimals.Dock = DockStyle.Left;
+            lblStatusAnimals.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblStatusAnimals.ForeColor = Color.PaleTurquoise;
+            lblStatusAnimals.Location = new Point(0, 0);
+            lblStatusAnimals.Name = "lblStatusAnimals";
+            lblStatusAnimals.Padding = new Padding(10, 0, 0, 0);
+            lblStatusAnimals.Size = new Size(300, 42);
+            lblStatusAnimals.TabIndex = 0;
+            lblStatusAnimals.Text = "Всего животных в базе: 0";
+            lblStatusAnimals.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dgvAnimals
             // 
@@ -141,119 +183,274 @@
             dgvAnimals.DefaultCellStyle = dataGridViewCellStyle3;
             dgvAnimals.Dock = DockStyle.Fill;
             dgvAnimals.GridColor = Color.Gainsboro;
-            dgvAnimals.Location = new Point(0, 124);
+            dgvAnimals.Location = new Point(3, 67);
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.ReadOnly = true;
             dgvAnimals.RowTemplate.Height = 30;
-            dgvAnimals.Size = new Size(800, 296);
+            dgvAnimals.Size = new Size(986, 442);
             dgvAnimals.TabIndex = 2;
             // 
-            // errorPanel
+            // toolPanelAnimals
             // 
-            errorPanel.BackColor = Color.MistyRose;
-            errorPanel.Controls.Add(lblError);
-            errorPanel.Dock = DockStyle.Fill;
-            errorPanel.Location = new Point(0, 124);
-            errorPanel.Name = "errorPanel";
-            errorPanel.Size = new Size(800, 296);
-            errorPanel.TabIndex = 3;
-            errorPanel.Visible = false;
+            toolPanelAnimals.BackColor = SystemColors.GradientActiveCaption;
+            toolPanelAnimals.Controls.Add(btnDeleteAnimal);
+            toolPanelAnimals.Controls.Add(btnEditAnimal);
+            toolPanelAnimals.Controls.Add(btnAddAnimal);
+            toolPanelAnimals.Dock = DockStyle.Top;
+            toolPanelAnimals.Location = new Point(3, 3);
+            toolPanelAnimals.Name = "toolPanelAnimals";
+            toolPanelAnimals.Size = new Size(986, 64);
+            toolPanelAnimals.TabIndex = 4;
             // 
-            // lblError
+            // btnDeleteAnimal
             // 
-            lblError.AutoSize = true;
-            lblError.Dock = DockStyle.Fill;
-            lblError.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblError.ForeColor = Color.Firebrick;
-            lblError.Location = new Point(0, 0);
-            lblError.Name = "lblError";
-            lblError.Size = new Size(487, 32);
-            lblError.TabIndex = 0;
-            lblError.Text = "Не удалось подключиться к базе данных.";
+            btnDeleteAnimal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteAnimal.Font = new Font("Segoe UI", 12F);
+            btnDeleteAnimal.Location = new Point(840, 15);
+            btnDeleteAnimal.Name = "btnDeleteAnimal";
+            btnDeleteAnimal.Size = new Size(134, 33);
+            btnDeleteAnimal.TabIndex = 2;
+            btnDeleteAnimal.Text = "Удалить";
+            btnDeleteAnimal.UseVisualStyleBackColor = true;
+            btnDeleteAnimal.Click += btnDeleteAnimal_Click;
             // 
-            // toolPanel
+            // btnEditAnimal
             // 
-            toolPanel.BackColor = SystemColors.GradientActiveCaption;
-            toolPanel.Controls.Add(btnDelete);
-            toolPanel.Controls.Add(btnEdit);
-            toolPanel.Controls.Add(btnAdd);
-            toolPanel.Dock = DockStyle.Top;
-            toolPanel.Location = new Point(0, 60);
-            toolPanel.Name = "toolPanel";
-            toolPanel.Size = new Size(800, 64);
-            toolPanel.TabIndex = 4;
+            btnEditAnimal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditAnimal.Font = new Font("Segoe UI", 12F);
+            btnEditAnimal.Location = new Point(700, 15);
+            btnEditAnimal.Name = "btnEditAnimal";
+            btnEditAnimal.Size = new Size(134, 33);
+            btnEditAnimal.TabIndex = 1;
+            btnEditAnimal.Text = "Редактировать";
+            btnEditAnimal.UseVisualStyleBackColor = true;
+            btnEditAnimal.Click += btnEditAnimal_Click;
             // 
-            // btnDelete
+            // btnAddAnimal
             // 
-            btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDelete.Font = new Font("Segoe UI", 12F);
-            btnDelete.Location = new Point(654, 15);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(134, 33);
-            btnDelete.TabIndex = 2;
-            btnDelete.Text = "Удалить";
-            btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
+            btnAddAnimal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAddAnimal.Font = new Font("Segoe UI", 12F);
+            btnAddAnimal.Location = new Point(560, 15);
+            btnAddAnimal.Name = "btnAddAnimal";
+            btnAddAnimal.Size = new Size(134, 33);
+            btnAddAnimal.TabIndex = 0;
+            btnAddAnimal.Text = "Добавить";
+            btnAddAnimal.UseVisualStyleBackColor = true;
+            btnAddAnimal.Click += btnAddAnimal_Click;
             // 
-            // btnEdit
+            // tabNews
             // 
-            btnEdit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnEdit.Font = new Font("Segoe UI", 12F);
-            btnEdit.Location = new Point(514, 15);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(134, 33);
-            btnEdit.TabIndex = 1;
-            btnEdit.Text = "Редактировать";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
+            tabNews.Controls.Add(StatusPanelNews);
+            tabNews.Controls.Add(dgvNews);
+            tabNews.Controls.Add(toolPanelNews);
+            tabNews.Controls.Add(errorPanelNews);
+            tabNews.Location = new Point(4, 24);
+            tabNews.Name = "tabNews";
+            tabNews.Padding = new Padding(3);
+            tabNews.Size = new Size(992, 512);
+            tabNews.TabIndex = 1;
+            tabNews.Text = "Новости";
+            tabNews.UseVisualStyleBackColor = true;
             // 
-            // btnAdd
+            // StatusPanelNews
             // 
-            btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.Font = new Font("Segoe UI", 12F);
-            btnAdd.Location = new Point(374, 15);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(134, 33);
-            btnAdd.TabIndex = 0;
-            btnAdd.Text = "Добавить";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
+            StatusPanelNews.BackColor = Color.SteelBlue;
+            StatusPanelNews.BorderStyle = BorderStyle.FixedSingle;
+            StatusPanelNews.Controls.Add(lblStatusNews);
+            StatusPanelNews.Dock = DockStyle.Bottom;
+            StatusPanelNews.Location = new Point(3, 465);
+            StatusPanelNews.Name = "StatusPanelNews";
+            StatusPanelNews.Size = new Size(986, 44);
+            StatusPanelNews.TabIndex = 0;
+            // 
+            // lblStatusNews
+            // 
+            lblStatusNews.Dock = DockStyle.Left;
+            lblStatusNews.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            lblStatusNews.ForeColor = Color.PaleTurquoise;
+            lblStatusNews.Location = new Point(0, 0);
+            lblStatusNews.Name = "lblStatusNews";
+            lblStatusNews.Padding = new Padding(10, 0, 0, 0);
+            lblStatusNews.Size = new Size(300, 42);
+            lblStatusNews.TabIndex = 0;
+            lblStatusNews.Text = "Всего новостей: 0";
+            lblStatusNews.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // dgvNews
+            // 
+            dataGridViewCellStyle4.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dgvNews.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dgvNews.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvNews.BackgroundColor = SystemColors.GradientInactiveCaption;
+            dgvNews.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.Navy;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvNews.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dgvNews.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvNews.DefaultCellStyle = dataGridViewCellStyle6;
+            dgvNews.Dock = DockStyle.Fill;
+            dgvNews.GridColor = Color.Gainsboro;
+            dgvNews.Location = new Point(3, 67);
+            dgvNews.Name = "dgvNews";
+            dgvNews.ReadOnly = true;
+            dgvNews.RowTemplate.Height = 30;
+            dgvNews.Size = new Size(986, 442);
+            dgvNews.TabIndex = 2;
+            // 
+            // toolPanelNews
+            // 
+            toolPanelNews.BackColor = SystemColors.GradientActiveCaption;
+            toolPanelNews.Controls.Add(btnRefreshNews);
+            toolPanelNews.Controls.Add(btnDeleteNews);
+            toolPanelNews.Controls.Add(btnEditNews);
+            toolPanelNews.Controls.Add(btnAddNews);
+            toolPanelNews.Dock = DockStyle.Top;
+            toolPanelNews.Location = new Point(3, 3);
+            toolPanelNews.Name = "toolPanelNews";
+            toolPanelNews.Size = new Size(986, 64);
+            toolPanelNews.TabIndex = 4;
+            // 
+            // btnRefreshNews
+            // 
+            btnRefreshNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnRefreshNews.Font = new Font("Segoe UI", 12F);
+            btnRefreshNews.Location = new Point(840, 15);
+            btnRefreshNews.Name = "btnRefreshNews";
+            btnRefreshNews.Size = new Size(134, 33);
+            btnRefreshNews.TabIndex = 3;
+            btnRefreshNews.Text = "Обновить";
+            btnRefreshNews.UseVisualStyleBackColor = true;
+            btnRefreshNews.Click += btnRefreshNews_Click;
+            // 
+            // btnDeleteNews
+            // 
+            btnDeleteNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDeleteNews.Font = new Font("Segoe UI", 12F);
+            btnDeleteNews.Location = new Point(700, 15);
+            btnDeleteNews.Name = "btnDeleteNews";
+            btnDeleteNews.Size = new Size(134, 33);
+            btnDeleteNews.TabIndex = 2;
+            btnDeleteNews.Text = "Удалить";
+            btnDeleteNews.UseVisualStyleBackColor = true;
+            btnDeleteNews.Click += btnDeleteNews_Click;
+            // 
+            // btnEditNews
+            // 
+            btnEditNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnEditNews.Font = new Font("Segoe UI", 12F);
+            btnEditNews.Location = new Point(560, 15);
+            btnEditNews.Name = "btnEditNews";
+            btnEditNews.Size = new Size(134, 33);
+            btnEditNews.TabIndex = 1;
+            btnEditNews.Text = "Редактировать";
+            btnEditNews.UseVisualStyleBackColor = true;
+            btnEditNews.Click += btnEditNews_Click;
+            // 
+            // btnAddNews
+            // 
+            btnAddNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAddNews.Font = new Font("Segoe UI", 12F);
+            btnAddNews.Location = new Point(420, 15);
+            btnAddNews.Name = "btnAddNews";
+            btnAddNews.Size = new Size(134, 33);
+            btnAddNews.TabIndex = 0;
+            btnAddNews.Text = "Добавить";
+            btnAddNews.UseVisualStyleBackColor = true;
+            btnAddNews.Click += btnAddNews_Click;
+            // 
+            // errorPanelNews
+            // 
+            errorPanelNews.BackColor = Color.MistyRose;
+            errorPanelNews.Controls.Add(lblErrorNews);
+            errorPanelNews.Dock = DockStyle.Fill;
+            errorPanelNews.Location = new Point(3, 3);
+            errorPanelNews.Name = "errorPanelNews";
+            errorPanelNews.Size = new Size(986, 506);
+            errorPanelNews.TabIndex = 3;
+            errorPanelNews.Visible = false;
+            // 
+            // lblErrorNews
+            // 
+            lblErrorNews.AutoSize = true;
+            lblErrorNews.Dock = DockStyle.Fill;
+            lblErrorNews.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            lblErrorNews.ForeColor = Color.Firebrick;
+            lblErrorNews.Location = new Point(0, 0);
+            lblErrorNews.Name = "lblErrorNews";
+            lblErrorNews.Size = new Size(358, 32);
+            lblErrorNews.TabIndex = 0;
+            lblErrorNews.Text = "Не удалось загрузить новости.";
+            lblErrorNews.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(errorPanel);
-            Controls.Add(dgvAnimals);
-            Controls.Add(toolPanel);
+            ClientSize = new Size(1000, 600);
+            Controls.Add(tabControl);
             Controls.Add(headerPanel);
-            Controls.Add(StatusPanel);
             Name = "MainForm";
             Text = "Админ-панель приюта \"Шанс на жизнь\"";
             WindowState = FormWindowState.Maximized;
-            StatusPanel.ResumeLayout(false);
             headerPanel.ResumeLayout(false);
+            tabControl.ResumeLayout(false);
+            tabAnimals.ResumeLayout(false);
+            errorPanelAnimals.ResumeLayout(false);
+            errorPanelAnimals.PerformLayout();
+            StatusPanelAnimals.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
-            errorPanel.ResumeLayout(false);
-            errorPanel.PerformLayout();
-            toolPanel.ResumeLayout(false);
+            toolPanelAnimals.ResumeLayout(false);
+            tabNews.ResumeLayout(false);
+            StatusPanelNews.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvNews).EndInit();
+            toolPanelNews.ResumeLayout(false);
+            errorPanelNews.ResumeLayout(false);
+            errorPanelNews.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel StatusPanel;
-        private Label lblStatus;
         private Panel headerPanel;
-        private DataGridView dgvAnimals;
         private Label label1;
-        private Panel errorPanel;
-        private Label lblError;
-        private Panel toolPanel;
-        private Button btnDelete;
-        private Button btnEdit;
-        private Button btnAdd;
-        private Button btnNews;
+        private TabControl tabControl;
+        private TabPage tabAnimals;
+        private TabPage tabNews;
+
+        // Элементы вкладки "Животные"
+        private DataGridView dgvAnimals;
+        private Panel errorPanelAnimals;
+        private Label lblErrorAnimals;
+        private Panel toolPanelAnimals;
+        private Button btnDeleteAnimal;
+        private Button btnEditAnimal;
+        private Button btnAddAnimal;
+        private Panel StatusPanelAnimals;
+        private Label lblStatusAnimals;
+
+        // Элементы вкладки "Новости"
+        private DataGridView dgvNews;
+        private Panel errorPanelNews;
+        private Label lblErrorNews;
+        private Panel toolPanelNews;
+        private Button btnDeleteNews;
+        private Button btnEditNews;
+        private Button btnAddNews;
+        private Button btnRefreshNews;
+        private Panel StatusPanelNews;
+        private Label lblStatusNews;
     }
 }
