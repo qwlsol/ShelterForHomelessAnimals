@@ -4,6 +4,8 @@ using ShelterAdmin.Services;
 using ShelterAdmin.Utils;
 using ShelterApp.Data;
 using ShelterApp.Models;
+using ShelterAdmin.Utils;
+using ShelterApp.Data;
 
 namespace ShelterAdmin;
 
@@ -38,13 +40,13 @@ public partial class MainForm : Form
             dgvAnimals.Visible = true;
             errorPanel.Visible = false;
 
-            lblStatus.Text = $"Всего животных в базе: {animals.Count}";
+            lblStatus.Text = $"Г‚Г±ГҐГЈГ® Г¦ГЁГўГ®ГІГ­Г»Гµ Гў ГЎГ Г§ГҐ: {animals.Count}";
         }
         catch (Exception ex)
         {
             dgvAnimals.Visible = false;
             errorPanel.Visible = true;
-            lblStatus.Text = "Статус: Нет подключения к БД";
+            lblStatus.Text = "Г‘ГІГ ГІГіГ±: ГЌГҐГІ ГЇГ®Г¤ГЄГ«ГѕГ·ГҐГ­ГЁГї ГЄ ГЃГ„";
             lblStatus.ForeColor = Color.Red;
         }
     }
@@ -62,7 +64,7 @@ public partial class MainForm : Form
     {
         if (dgvAnimals.CurrentRow?.DataBoundItem is not Animal selectedAnimal)
         {
-            MessageBox.Show("Выберите животное из таблицы.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Г‚Г»ГЎГҐГ°ГЁГІГҐ Г¦ГЁГўГ®ГІГ­Г®ГҐ ГЁГ§ ГІГ ГЎГ«ГЁГ¶Г».", "Г‚Г­ГЁГ¬Г Г­ГЁГҐ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
 
@@ -77,17 +79,28 @@ public partial class MainForm : Form
     {
         if (dgvAnimals.CurrentRow?.DataBoundItem is not Animal selectedAnimal)
         {
-            MessageBox.Show("Выберите животное из таблицы.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Г‚Г»ГЎГҐГ°ГЁГІГҐ Г¦ГЁГўГ®ГІГ­Г®ГҐ ГЁГ§ ГІГ ГЎГ«ГЁГ¶Г».", "Г‚Г­ГЁГ¬Г Г­ГЁГҐ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
 
-        var result = MessageBox.Show($"Вы уверены, что хотите удалить {selectedAnimal.Name}?",
-                                     "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        var result = MessageBox.Show($"Г‚Г» ГіГўГҐГ°ГҐГ­Г», Г·ГІГ® ГµГ®ГІГЁГІГҐ ГіГ¤Г Г«ГЁГІГј {selectedAnimal.Name}?",
+                                     "ГЏГ®Г¤ГІГўГҐГ°Г¦Г¤ГҐГ­ГЁГҐ ГіГ¤Г Г«ГҐГ­ГЁГї", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
         if (result == DialogResult.Yes)
         {
             _animalService.DeleteAnimal(selectedAnimal.Id);
             LoadData();
         }
+    private void btnNews_Click(object sender, EventArgs e)
+    {
+        DbContextOptionsBuilder<ShelterContext> optionsBuilder = new DbContextOptionsBuilder<ShelterContext>();
+        //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=shelter_db;Username=postgres;Password=123");
+        optionsBuilder.UseNpgsql("Host=192.168.1.48;Port=5432;Database=shelter_db;Username=st56-7;Password=567");
+
+        ShelterContext context = new ShelterContext(optionsBuilder.Options);
+        NewsService newsService = new NewsService(context);
+
+        NewsListForm newsForm = new NewsListForm(newsService);
+        newsForm.ShowDialog();
     }
 }

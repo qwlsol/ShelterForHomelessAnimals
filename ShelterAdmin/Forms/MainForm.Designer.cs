@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             StatusPanel = new Panel();
             lblStatus = new Label();
+            btnNews = new Button();
             headerPanel = new Panel();
             label1 = new Label();
             dgvAnimals = new DataGridView();
@@ -58,6 +59,11 @@
             StatusPanel.Location = new Point(0, 420);
             StatusPanel.Name = "StatusPanel";
             StatusPanel.Size = new Size(800, 30);
+            StatusPanel.Controls.Add(btnNews);
+            StatusPanel.Dock = DockStyle.Bottom;
+            StatusPanel.Location = new Point(0, 406);
+            StatusPanel.Name = "StatusPanel";
+            StatusPanel.Size = new Size(800, 44);
             StatusPanel.TabIndex = 0;
             // 
             // lblStatus
@@ -72,6 +78,19 @@
             lblStatus.TabIndex = 0;
             lblStatus.Text = "Всего животных в базе: 0";
             lblStatus.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnNews
+            // 
+            btnNews.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnNews.BackColor = Color.SteelBlue;
+            btnNews.ForeColor = SystemColors.ButtonFace;
+            btnNews.Location = new Point(629, 5);
+            btnNews.Name = "btnNews";
+            btnNews.Size = new Size(158, 31);
+            btnNews.TabIndex = 1;
+            btnNews.Text = "Управление новостями";
+            btnNews.UseVisualStyleBackColor = false;
+            btnNews.Click += btnNews_Click;
             // 
             // headerPanel
             // 
@@ -235,5 +254,6 @@
         private Button btnDelete;
         private Button btnEdit;
         private Button btnAdd;
+        private Button btnNews;
     }
 }
