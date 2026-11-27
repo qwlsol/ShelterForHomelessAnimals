@@ -37,6 +37,8 @@
             btnEditAnimal = new Button();
             btnAddAnimal = new Button();
             tabNews = new TabPage();
+            errorPanelNews = new Panel();
+            lblErrorNews = new Label();
             StatusPanelNews = new Panel();
             lblStatusNews = new Label();
             dgvNews = new DataGridView();
@@ -45,8 +47,6 @@
             btnDeleteNews = new Button();
             btnEditNews = new Button();
             btnAddNews = new Button();
-            errorPanelNews = new Panel();
-            lblErrorNews = new Label();
             headerPanel.SuspendLayout();
             tabControl.SuspendLayout();
             tabAnimals.SuspendLayout();
@@ -55,10 +55,10 @@
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             toolPanelAnimals.SuspendLayout();
             tabNews.SuspendLayout();
+            errorPanelNews.SuspendLayout();
             StatusPanelNews.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNews).BeginInit();
             toolPanelNews.SuspendLayout();
-            errorPanelNews.SuspendLayout();
             SuspendLayout();
             // 
             // headerPanel
@@ -240,10 +240,10 @@
             // 
             // tabNews
             // 
+            tabNews.Controls.Add(errorPanelNews);
             tabNews.Controls.Add(StatusPanelNews);
             tabNews.Controls.Add(dgvNews);
             tabNews.Controls.Add(toolPanelNews);
-            tabNews.Controls.Add(errorPanelNews);
             tabNews.Location = new Point(4, 24);
             tabNews.Name = "tabNews";
             tabNews.Padding = new Padding(3);
@@ -251,6 +251,30 @@
             tabNews.TabIndex = 1;
             tabNews.Text = "Новости";
             tabNews.UseVisualStyleBackColor = true;
+            // 
+            // errorPanelNews
+            // 
+            errorPanelNews.BackColor = Color.MistyRose;
+            errorPanelNews.Controls.Add(lblErrorNews);
+            errorPanelNews.Dock = DockStyle.Fill;
+            errorPanelNews.Location = new Point(3, 67);
+            errorPanelNews.Name = "errorPanelNews";
+            errorPanelNews.Size = new Size(986, 398);
+            errorPanelNews.TabIndex = 3;
+            errorPanelNews.Visible = false;
+            // 
+            // lblErrorNews
+            // 
+            lblErrorNews.AutoSize = true;
+            lblErrorNews.Dock = DockStyle.Fill;
+            lblErrorNews.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            lblErrorNews.ForeColor = Color.Firebrick;
+            lblErrorNews.Location = new Point(0, 0);
+            lblErrorNews.Name = "lblErrorNews";
+            lblErrorNews.Size = new Size(358, 32);
+            lblErrorNews.TabIndex = 0;
+            lblErrorNews.Text = "Не удалось загрузить новости.";
+            lblErrorNews.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // StatusPanelNews
             // 
@@ -371,30 +395,6 @@
             btnAddNews.UseVisualStyleBackColor = true;
             btnAddNews.Click += btnAddNews_Click;
             // 
-            // errorPanelNews
-            // 
-            errorPanelNews.BackColor = Color.MistyRose;
-            errorPanelNews.Controls.Add(lblErrorNews);
-            errorPanelNews.Dock = DockStyle.Fill;
-            errorPanelNews.Location = new Point(3, 3);
-            errorPanelNews.Name = "errorPanelNews";
-            errorPanelNews.Size = new Size(986, 506);
-            errorPanelNews.TabIndex = 3;
-            errorPanelNews.Visible = false;
-            // 
-            // lblErrorNews
-            // 
-            lblErrorNews.AutoSize = true;
-            lblErrorNews.Dock = DockStyle.Fill;
-            lblErrorNews.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblErrorNews.ForeColor = Color.Firebrick;
-            lblErrorNews.Location = new Point(0, 0);
-            lblErrorNews.Name = "lblErrorNews";
-            lblErrorNews.Size = new Size(358, 32);
-            lblErrorNews.TabIndex = 0;
-            lblErrorNews.Text = "Не удалось загрузить новости.";
-            lblErrorNews.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -414,11 +414,11 @@
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             toolPanelAnimals.ResumeLayout(false);
             tabNews.ResumeLayout(false);
+            errorPanelNews.ResumeLayout(false);
+            errorPanelNews.PerformLayout();
             StatusPanelNews.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvNews).EndInit();
             toolPanelNews.ResumeLayout(false);
-            errorPanelNews.ResumeLayout(false);
-            errorPanelNews.PerformLayout();
             ResumeLayout(false);
         }
 
